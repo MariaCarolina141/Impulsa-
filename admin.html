@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Admin — Impulsa+</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div style="max-width:980px;margin:28px auto;padding:20px;">
+    <h1>Admin — Pedidos de Mentoria</h1>
+    <div id="admin-auth-warning" style="color:#b91c1c;margin-top:8px;display:none;">Acesso restrito. Você precisa ser administrador para ver esta página.</div>
+    <p>Lista de pedidos enviados pelos empreendedores e mentores cadastrados.</p>
+    <div style="margin-top:18px;display:flex;gap:10px;">
+      <button id="export-mentor-requests" class="btn-primary">Exportar pedidos (CSV)</button>
+      <button id="refresh-admin" class="btn-secondary">Recarregar</button>
+    </div>
+
+    <h2 style="margin-top:20px;">Pedidos de Mentor</h2>
+    <div id="admin-mentor-requests" style="margin-top:8px;display:flex;flex-direction:column;gap:8px;"></div>
+
+    <h2 style="margin-top:20px;">Mentores cadastrados</h2>
+    <div id="admin-mentors-list" style="margin-top:8px;display:flex;flex-direction:column;gap:8px;"></div>
+  </div>
+  <script src="/script.js"></script>
+</body>
+</html>
