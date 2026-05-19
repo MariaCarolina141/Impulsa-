@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Impulsa+</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <h2>Impulsa<span style="color:#60a5fa">+</span></h2>
+    <ul>
+      <li>Dashboard</li>
+      <li>Finanças</li>
+      <li>Estoque</li>
+      <li>Relatórios</li>
+      <li>Configurações</li>
+    </ul>
+  </div>
+
+  <!-- CONTEÚDO -->
+  <div class="main">
+
+    <header>
+      <h1>Painel do Empreendedor</h1>
+      <p>Bem-vindo de volta</p>
+    </header>
+
+    <!-- CARDS -->
+    <div class="cards">
+      <div class="card">
+        <h3>Faturamento (mensal)</h3>
+        <p id="dash-revenue">R$ 0</p>
+      </div>
+      <div class="card">
+        <h3>Meta</h3>
+        <p id="dash-goal">R$ 0</p>
+      </div>
+      <div class="card">
+        <h3>Crescimento (mês)</h3>
+        <p id="dash-growth">0%</p>
+      </div>
+    </div>
+
+    <!-- ASSISTENTE -->
+    <div class="assistente">
+      <h3>Assistente</h3>
+      <p id="mensagem">Analisando seu negócio...</p>
+    </div>
+
+    <!-- Dashboard chart -->
+    <div style="margin-top:18px;background:#fff;padding:16px;border-radius:12px;">
+      <h3>Vendas - Últimos 6 meses</h3>
+      <canvas id="dashboard-chart" width="600" height="240" style="max-width:100%;"></canvas>
+    </div>
+
+    <!-- Regions map (simplified) -->
+    <div style="margin-top:18px;background:#fff;padding:16px;border-radius:12px;">
+      <h3>Mapa do Brasil (regiões)</h3>
+      <div id="regions" style="margin-top:10px;">
+        <!-- Simplified clickable states SVG (grid-like layout for demo) -->
+        <svg id="brazil-map" viewBox="0 0 800 600" style="width:100%;height:300px;background:linear-gradient(180deg,#fff,#f8fafc);border:1px solid #eef2f7;border-radius:8px;">
+          <!-- Example placement of some states as rectangles (demo, not geographic) -->
+          <g id="states">
+            <rect class="state" data-state="AC" x="20" y="220" width="60" height="40" fill="#dbeafe" stroke="#93c5fd" rx="6"/>
+            <text x="50" y="250" text-anchor="middle" font-size="12" fill="#0f172a">AC</text>
+            <rect class="state" data-state="AM" x="100" y="140" width="80" height="40" fill="#dbeafe" stroke="#93c5fd" rx="6"/>
+            <text x="140" y="168" text-anchor="middle" font-size="12" fill="#0f172a">AM</text>
+            <rect class="state" data-state="PA" x="200" y="100" width="90" height="40" fill="#dbeafe" stroke="#93c5fd" rx="6"/>
+            <text x="245" y="128" text-anchor="middle" font-size="12" fill="#0f172a">PA</text>
+            <rect class="state" data-state="RR" x="100" y="100" width="40" height="30" fill="#dbeafe" stroke="#93c5fd" rx="6"/>
+            <text x="120" y="120" text-anchor="middle" font-size="10" fill="#0f172a">RR</text>
+            <rect class="state" data-state="AP" x="320" y="80" width="40" height="30" fill="#dbeafe" stroke="#93c5fd" rx="6"/>
+            <text x="340" y="100" text-anchor="middle" font-size="10" fill="#0f172a">AP</text>
+            <rect class="state" data-state="TO" x="260" y="170" width="50" height="30" fill="#dbeafe" stroke="#93c5fd" rx="6"/>
+            <text x="285" y="190" text-anchor="middle" font-size="10" fill="#0f172a">TO</text>
+            <rect class="state" data-state="MA" x="300" y="140" width="60" height="30" fill="#fee" stroke="#fca5a5" rx="6"/>
+            <text x="330" y="160" text-anchor="middle" font-size="10" fill="#7f1d1d">MA</text>
+            <rect class="state" data-state="PI" x="360" y="160" width="50" height="30" fill="#fde68a" stroke="#facc15" rx="6"/>
+            <text x="385" y="180" text-anchor="middle" font-size="10" fill="#92400e">PI</text>
+            <rect class="state" data-state="CE" x="540" y="120" width="70" height="40" fill="#fee2e2" stroke="#fca5a5" rx="6"/>
+            <text x="575" y="148" text-anchor="middle" font-size="12" fill="#7f1d1d">CE</text>
+            <rect class="state" data-state="RN" x="600" y="120" width="40" height="30" fill="#fde68a" stroke="#facc15" rx="6"/>
+            <text x="620" y="140" text-anchor="middle" font-size="10" fill="#92400e">RN</text>
+            <rect class="state" data-state="PB" x="640" y="140" width="40" height="30" fill="#fde68a" stroke="#facc15" rx="6"/>
+            <text x="660" y="160" text-anchor="middle" font-size="10" fill="#92400e">PB</text>
+            <rect class="state" data-state="PE" x="660" y="170" width="40" height="30" fill="#fde68a" stroke="#facc15" rx="6"/>
+            <text x="680" y="190" text-anchor="middle" font-size="10" fill="#92400e">PE</text>
+            <rect class="state" data-state="AL" x="680" y="200" width="30" height="24" fill="#fde68a" stroke="#facc15" rx="6"/>
+            <text x="695" y="216" text-anchor="middle" font-size="9" fill="#92400e">AL</text>
+            <rect class="state" data-state="SE" x="710" y="210" width="30" height="24" fill="#fde68a" stroke="#facc15" rx="6"/>
+            <text x="725" y="226" text-anchor="middle" font-size="9" fill="#92400e">SE</text>
+            <rect class="state" data-state="BA" x="480" y="220" width="80" height="40" fill="#fde68a" stroke="#facc15" rx="6"/>
+            <text x="520" y="248" text-anchor="middle" font-size="12" fill="#92400e">BA</text>
+            <rect class="state" data-state="MT" x="340" y="220" width="70" height="40" fill="#bbf7d0" stroke="#86efac" rx="6"/>
+            <text x="375" y="248" text-anchor="middle" font-size="12" fill="#064e3b">MT</text>
+            <rect class="state" data-state="MS" x="420" y="260" width="60" height="36" fill="#bbf7d0" stroke="#86efac" rx="6"/>
+            <text x="450" y="284" text-anchor="middle" font-size="12" fill="#064e3b">MS</text>
+            <rect class="state" data-state="GO" x="420" y="200" width="60" height="36" fill="#bbf7d0" stroke="#86efac" rx="6"/>
+            <text x="450" y="224" text-anchor="middle" font-size="12" fill="#064e3b">GO</text>
+            <rect class="state" data-state="DF" x="455" y="188" width="28" height="18" fill="#bbf7d0" stroke="#86efac" rx="6"/>
+            <text x="469" y="201" text-anchor="middle" font-size="9" fill="#064e3b">DF</text>
+            <rect class="state" data-state="MG" x="500" y="260" width="70" height="40" fill="#e9d5ff" stroke="#c4b5fd" rx="6"/>
+            <text x="535" y="288" text-anchor="middle" font-size="12" fill="#4c1d95">MG</text>
+            <rect class="state" data-state="ES" x="600" y="260" width="40" height="30" fill="#e9d5ff" stroke="#c4b5fd" rx="6"/>
+            <text x="620" y="280" text-anchor="middle" font-size="10" fill="#4c1d95">ES</text>
+            <rect class="state" data-state="RJ" x="610" y="300" width="60" height="40" fill="#bbf7d0" stroke="#86efac" rx="6"/>
+            <text x="640" y="328" text-anchor="middle" font-size="12" fill="#064e3b">RJ</text>
+            <rect class="state" data-state="SP" x="520" y="320" width="80" height="40" fill="#bbf7d0" stroke="#86efac" rx="6"/>
+            <text x="560" y="348" text-anchor="middle" font-size="12" fill="#064e3b">SP</text>
+            <rect class="state" data-state="PR" x="520" y="360" width="80" height="40" fill="#e9d5ff" stroke="#c4b5fd" rx="6"/>
+            <text x="560" y="388" text-anchor="middle" font-size="12" fill="#4c1d95">PR</text>
+            <rect class="state" data-state="SC" x="520" y="400" width="80" height="28" fill="#e9d5ff" stroke="#c4b5fd" rx="6"/>
+            <text x="560" y="418" text-anchor="middle" font-size="12" fill="#4c1d95">SC</text>
+            <rect class="state" data-state="RS" x="520" y="440" width="90" height="40" fill="#e9d5ff" stroke="#c4b5fd" rx="6"/>
+            <text x="565" y="468" text-anchor="middle" font-size="12" fill="#4c1d95">RS</text>
+          </g>
+        </svg>
+      </div>
+      <div id="region-info" style="margin-top:12px;color:#334155;"></div>
+    </div>
+
+    <!-- Quiz inteligente -->
+    <div style="margin-top:18px;background:#fff;padding:16px;border-radius:12px;">
+      <h3>Quiz: Descubra o apoio ideal</h3>
+      <div id="quiz-panel">
+        <div id="quiz-questions" style="display:flex;flex-direction:column;gap:12px;">
+          <div>
+            <label>1) Qual o estágio do seu negócio?</label>
+            <select id="q1"><option value="ideia">Ideia</option><option value="validando">Validando</option><option value="crescimento">Crescimento</option></select>
+          </div>
+          <div>
+            <label>2) Principal desafio hoje?</label>
+            <select id="q2"><option value="vendas">Vendas</option><option value="financeiro">Financeiro</option><option value="marketing">Marketing</option></select>
+          </div>
+          <div>
+            <label>3) Você possui equipe?</label>
+            <select id="q3"><option value="sim">Sim</option><option value="nao">Não</option></select>
+          </div>
+          <div>
+            <label>4) Deseja acesso a crédito?</label>
+            <select id="q4"><option value="sim">Sim</option><option value="nao">Não</option></select>
+          </div>
+          <div>
+            <label>5) Prefere apoio online ou presencial?</label>
+            <select id="q5"><option value="online">Online</option><option value="presencial">Presencial</option></select>
+          </div>
+        </div>
+        <div style="margin-top:12px;display:flex;gap:8px;"><button id="quiz-run" class="btn-primary">Ver resultado</button><button id="quiz-reset" class="btn-secondary">Limpar</button></div>
+        <div id="quiz-result" style="margin-top:12px;color:#334155;"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
