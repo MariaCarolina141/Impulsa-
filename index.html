@@ -8,47 +8,22 @@
   <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
   <script src="/_sdk/element_sdk.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=DM+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet">
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html, body { height: 100%; font-family: 'DM Sans', sans-serif; }
-
-    .fade-up { opacity: 0; transform: translateY(30px); animation: fadeUp 0.7s ease forwards; }
-    @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
-    .delay-1 { animation-delay: 0.1s; }
-    .delay-2 { animation-delay: 0.2s; }
-    .delay-3 { animation-delay: 0.3s; }
-    .delay-4 { animation-delay: 0.4s; }
-    .delay-5 { animation-delay: 0.5s; }
-    .delay-6 { animation-delay: 0.6s; }
-
-    .hero-pattern {
-      background-image: radial-gradient(circle at 20% 50%, rgba(255,255,255,0.08) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 20%, rgba(168,85,247,0.12) 0%, transparent 40%),
-                        radial-gradient(circle at 60% 80%, rgba(255,255,255,0.05) 0%, transparent 40%);
-    }
-
-    .card-hover { transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1); }
-    .card-hover:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(0,59,115,0.12); }
-
-    .nav-scroll { backdrop-filter: blur(12px); transition: all 0.3s ease; }
-
-    .stat-counter { display: inline-block; }
-
-    .grid-pattern {
-      background-image: linear-gradient(rgba(99,102,241,0.03) 1px, transparent 1px),
-                        linear-gradient(90deg, rgba(99,102,241,0.03) 1px, transparent 1px);
-      background-size: 40px 40px;
-    }
-
-    .pulse-dot { animation: pulse 2s ease-in-out infinite; }
-    @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.6; transform: scale(1.3); } }
-  </style>
-  <style>body { box-sizing: border-box; }</style>
+  <link rel="stylesheet" href="/style.css">
   <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
  </head>
  <body class="h-full">
-  <div id="app-wrapper" class="w-full h-full overflow-auto" style="background-color: #f8f7fc;"><!-- Navigation -->
-   <nav id="navbar" class="fixed top-0 left-0 w-full z-50 nav-scroll" style="background: transparent; border-bottom: none;">
+  <div id="preloader" class="preloader">
+    <div class="preloader-card">
+      <div class="preloader-logo">Impulsa<span class="brand-plus">+</span></div>
+      <div class="preloader-text">Carregando inovação...</div>
+      <div class="preloader-dots"><span></span><span></span><span></span></div>
+    </div>
+  </div>
+  <div id="app-wrapper" class="w-full h-full overflow-auto">
+    <!-- =========================
+         NAVBAR
+    ========================= -->
+    <nav id="navbar" class="fixed top-0 left-0 w-full z-50 nav-scroll" style="background: transparent; border-bottom: none;">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
      <div class="flex items-center justify-between h-16 sm:h-20">
       <div class="flex items-center gap-3">
@@ -56,15 +31,30 @@
         <span style="font-weight:800; color:#fff; font-size:16px;">+</span>
        </div><span class="brand-title text-lg sm:text-xl font-bold" style="font-family: 'Plus Jakarta Sans', sans-serif; color: #91d7f3;">Impulsa<span class="brand-plus" style="color: #fae571;">+</span></span>
       </div>
-      <div class="hidden md:flex items-center gap-8"><a href="#servicos" class="nav-link text-sm font-medium hover:opacity-70 transition-opacity" style="color: #8bd9fd;">Serviços</a> <a href="#apoio" class="nav-link text-sm font-medium hover:opacity-70 transition-opacity" style="color: #8bd9fd;">Apoio</a> <a href="#projetos" class="nav-link text-sm font-medium hover:opacity-70 transition-opacity" style="color: #8bd9fd;">Projetos</a> <a href="#tecnologia" class="nav-link text-sm font-medium hover:opacity-70 transition-opacity" style="color: #8bd9fd;">Tecnologia</a> <button id="contact-btn" class="px-5 py-2.5 rounded-full text-sm font-semibold text-white transition-all hover:shadow-lg hover:scale-105" style="background: linear-gradient(135deg, #6366f1, #7c3aed);">Fale Conosco</button>
+      <div class="hidden md:flex items-center gap-8"> <div class="hidden md:flex items-center gap-8"><a href="#servicos" class="nav-link text-sm font-medium hover:opacity-70 transition-opacity" style="color: #8bd9fd;">Serviços</a> <a href="#apoio" class="nav-link text-sm font-medium hover:opacity-70 transition-opacity" style="color: #8bd9fd;">Apoio</a> <a href="#projetos" class="nav-link text-sm font-medium hover:opacity-70 transition-opacity" style="color: #8bd9fd;">Projetos</a> <a href="#tecnologia" class="nav-link text-sm font-medium hover:opacity-70 transition-opacity" style="color: #8bd9fd;">Tecnologia</a>
+      </div><button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg" style="color: #8bd9fd;" onclick="toggleMobile()"> <i data-lucide="menu" style="width:24px;height:24px;"></i> </button>
+        <a href="#servicos" class="text-sm font-medium hover:opacity-70 transition-opacity" style="color: #6366f1;">Serviços</a>
+        <a href="#apoio" class="text-sm font-medium hover:opacity-70 transition-opacity" style="color: #6366f1;">Apoio</a>
+        <a href="#projetos" class="text-sm font-medium hover:opacity-70 transition-opacity" style="color: #6366f1;">Projetos</a>
+        <a href="#tecnologia" class="text-sm font-medium hover:opacity-70 transition-opacity" style="color: #6366f1;">Tecnologia</a>
+        <a href="/quiz.html" class="quiz-nav-btn">Fazer Quiz</a>
+        <div id="auth-area" style="display:inline-flex;align-items:center;gap:8px;margin-left:8px;">
+        <button id="login-btn" class="px-3 py-2 rounded-full text-sm" style="background: rgba(255,255,255,0.06); color: #fff;">Entrar</button>
+        <button id="logout-btn" class="px-3 py-2 rounded-full text-sm hidden" style="background: rgba(255,255,255,0.06); color: #fff;">Sair</button>
+        <button id="contact-btn" class="px-5 py-2.5 rounded-full text-sm font-semibold text-white transition-all hover:shadow-lg hover:scale-105" style="background: linear-gradient(135deg, #6366f1, #7c3aed);">Fale Conosco</button>
+        <span id="user-badge" style="color:#fff;font-weight:600;display:none;margin-left:6px;"></span>
+      </div>
       </div><button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg" style="color: #8bd9fd;" onclick="toggleMobile()"> <i data-lucide="menu" style="width:24px;height:24px;"></i> </button>
      </div>
     </div><!-- Mobile menu -->
-    <div id="mobile-menu" class="hidden md:hidden border-t px-4 pb-4" style="background: rgba(255,255,255,0.98); border-color: rgba(0,59,115,0.08);">
-    <div class="flex flex-col gap-3 pt-3"><a href="#servicos" class="text-sm font-medium py-2" style="color: #1e1b4b;" onclick="toggleMobile()">Serviços</a> <a href="#apoio" class="text-sm font-medium py-2" style="color: #1e1b4b;" onclick="toggleMobile()">Apoio</a> <a href="#projetos" class="text-sm font-medium py-2" style="color: #1e1b4b;" onclick="toggleMobile()">Projetos</a> <a href="#tecnologia" class="text-sm font-medium py-2" style="color: #1e1b4b;" onclick="toggleMobile()">Tecnologia</a> <button id="contact-btn-mobile" class="px-5 py-2.5 rounded-full text-sm font-semibold text-white w-full" style="background: linear-gradient(135deg, #6366f1, #7c3aed);">Fale Conosco</button>
+    <div id="mobile-menu" class="hidden md:hidden border-t px-4 pb-4 mobile-menu">
+    <div class="flex flex-col gap-3 pt-3"><a href="#servicos" class="text-sm font-medium py-2" style="color: #e2e8f0;">Serviços</a> <a href="#apoio" class="text-sm font-medium py-2" style="color: #e2e8f0;">Apoio</a> <a href="#projetos" class="text-sm font-medium py-2" style="color: #e2e8f0;">Projetos</a> <a href="#tecnologia" class="text-sm font-medium py-2" style="color: #e2e8f0;">Tecnologia</a> <a href="/quiz.html" class="text-sm font-medium py-2 quiz-nav-btn" style="color: #fff;">Fazer Quiz</a> <button id="contact-btn-mobile" class="px-5 py-2.5 rounded-full text-sm font-semibold text-white w-full" style="background: linear-gradient(135deg, #6366f1, #7c3aed);">Fale Conosco</button>
      </div>
     </div>
    </nav><!-- Hero -->
+    <!-- =========================
+         HERO SECTION
+    ========================= -->
    <header class="hero-pattern relative overflow-hidden" style="background: linear-gradient(135deg, #003B73 0%, #00264d 60%, #001a36 100%); padding-top: 80px;">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 lg:py-32 relative z-10">
      <div class="grid lg:grid-cols-2 gap-12 items-center">
@@ -73,13 +63,17 @@
        </div>
        <h1 id="hero-title" class="fade-up delay-1 text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-extrabold leading-tight text-white" style="font-family: 'Plus Jakarta Sans', sans-serif;">Impulso para o seu <span style="color: #7c3aed;">negócio</span> crescer</h1>
        <p id="hero-subtitle" class="fade-up delay-2 mt-5 text-base sm:text-lg leading-relaxed" style="color: rgba(255,255,255,0.75); max-width: 520px;">Conectamos empreendedores a soluções, capacitação e tecnologia para fortalecer pequenos negócios em todo o Brasil.</p>
-       <div class="fade-up delay-3 flex flex-wrap gap-4 mt-8"><button id="cta-btn" class="px-7 py-3.5 rounded-full font-semibold text-white transition-all hover:shadow-xl hover:scale-105" style="background: linear-gradient(135deg, #7c3aed, #6366f1);"> Comece Agora </button> <button class="px-7 py-3.5 rounded-full font-semibold transition-all hover:bg-white/10" style="color: white; border: 1.5px solid rgba(255,255,255,0.25);"> Conheça os Projetos </button>
+      <div class="fade-up delay-3 flex flex-wrap gap-4 mt-8">
+        <button id="cta-btn" class="px-7 py-3.5 rounded-full font-semibold text-white transition-all hover:shadow-xl hover:scale-105" style="background: linear-gradient(135deg, #7c3aed, #6366f1);">Comece Agora</button>
+        <button id="projects-btn" class="px-7 py-3.5 rounded-full font-semibold transition-all hover:bg-white/10" style="color: white; border: 1.5px solid rgba(255,255,255,0.25);">Conheça os Projetos</button>
+        <button id="mentor-btn" class="px-7 py-3.5 rounded-full font-semibold transition-all hover:bg-white/10" style="color: white; border: 1.5px solid rgba(255,255,255,0.25);">Seja Mentor</button>
+      </div>
        </div>
       </div>
       <div class="fade-up delay-4 hidden lg:block"><!-- Stats cards -->
        <div class="grid grid-cols-2 gap-4">
         <div class="p-6 rounded-2xl" style="background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1);">
-         <div class="text-3xl font-extrabold text-white" style="font-family:'Plus Jakarta Sans',sans-serif;">
+         <div class="text-3xl font-extrabold counter-number" data-value="12" data-suffix="M+" style="font-family:'Plus Jakarta Sans',sans-serif; color:#ffffff;">
           12M+
          </div>
          <div class="text-sm mt-1" style="color:rgba(255,255,255,0.6);">
@@ -87,7 +81,7 @@
          </div>
         </div>
         <div class="p-6 rounded-2xl" style="background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1);">
-         <div class="text-3xl font-extrabold" style="font-family:'Plus Jakarta Sans',sans-serif; color:#e76dffa4;">
+         <div class="text-3xl font-extrabold counter-number" data-value="5500" style="font-family:'Plus Jakarta Sans',sans-serif; color:#e76dffa4;">
           5.500
          </div>
          <div class="text-sm mt-1" style="color:rgba(255,255,255,0.6);">
@@ -95,15 +89,15 @@
          </div>
         </div>
         <div class="p-6 rounded-2xl" style="background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1);">
-         <div class="text-3xl font-extrabold text-white" style="font-family:'Plus Jakarta Sans',sans-serif;">
+         <div class="text-3xl font-extrabold counter-number" data-value="800" data-suffix="+" style="font-family:'Plus Jakarta Sans',sans-serif; color:#ffffff;">
           800+
          </div>
          <div class="text-sm mt-1" style="color:rgba(255,255,255,0.6);">
           Projetos ativos
          </div>
         </div>
-        <div class="p-6 rounded-2xl" style="background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1);">
-         <div class="text-3xl font-extrabold text-white" style="font-family:'Plus Jakarta Sans',sans-serif;">
+        <div class="p-6 rounded-2xl" style="background: rgba(248, 246, 246, 0.07); border: 1px solid rgba(255,255,255,0.1);">
+         <div class="text-3xl font-extrabold counter-number" data-value="97" data-suffix="%" style="font-family:'Plus Jakarta Sans',sans-serif; color:#ffffff;">
           97%
          </div>
          <div class="text-sm mt-1" style="color:rgba(255,255,255,0.6);">
@@ -116,7 +110,10 @@
     </div><!-- Wave divider -->
     <svg class="w-full" viewbox="0 0 1440 80" preserveaspectratio="none" style="display:block; margin-bottom:-1px;"><path d="M0,40 C360,80 720,0 1080,40 C1260,60 1380,50 1440,40 L1440,80 L0,80 Z" fill="#ffffff" />
     </svg>
-   </header><!-- Services Section -->
+   </header>
+    <!-- =========================
+         SERVICES SECTION
+    ========================= -->
    <section id="servicos" class="grid-pattern py-16 sm:py-24" style="background-color: #ffffff;">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
      <div class="text-center mb-14"><span class="inline-block px-4 py-1.5 rounded-full text-xs font-bold tracking-wider uppercase mb-4" style="background: rgba(0,59,115,0.06); color: #003B73;">O que fazemos</span>
@@ -163,6 +160,9 @@
      </div>
     </div>
    </section><!-- Support Section -->
+    <!-- =========================
+         SUPPORT SECTION
+    ========================= -->
    <section id="apoio" class="py-16 sm:py-24" style="background-color: #f0f0f8;">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
      <div class="grid lg:grid-cols-2 gap-12 items-center">
@@ -318,6 +318,18 @@
           <button type="submit" class="btn-primary w-full">Criar conta</button>
         </form>
       </div>
+      <!-- Mentor signup panel -->
+      <div id="mentor-panel" class="hidden mt-8 max-w-3xl mx-auto text-left bg-white/10 border border-white/15 p-8 rounded-[30px] shadow-[0_30px_80px_rgba(15,23,42,0.18)]">
+        <h3 class="text-2xl font-bold text-white mb-3">Cadastro de Mentores</h3>
+        <p class="text-sm text-white/70 mb-6">Cadastre-se para orientar empreendedores — conte sua experiência e área de atuação.</p>
+        <form id="mentor-form" class="grid gap-4">
+          <input id="mentor-name" name="nome" type="text" placeholder="Nome completo" class="modal-input" required>
+          <input id="mentor-email" name="email" type="email" placeholder="Email" class="modal-input" required>
+          <input id="mentor-area" name="area" type="text" placeholder="Área de atuação (ex: marketing, finanças)" class="modal-input" required>
+          <textarea id="mentor-bio" name="bio" placeholder="Breve apresentação / experiência" class="modal-input" rows="4" required></textarea>
+          <button type="submit" class="btn-secondary w-full">Enviar cadastro</button>
+        </form>
+      </div>
      </div>
     </div>
    </section>
@@ -344,8 +356,9 @@
      </div>
     </div>
    </section>
-   <!-- Footer -->
-   <!-- Contact Section -->
+   <!-- =========================
+        CONTACT SECTION
+   ========================= -->
    <section id="contato" class="py-16 sm:py-20 bg-slate-50">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
      <div class="grid gap-8 lg:grid-cols-2 items-start">
@@ -433,6 +446,47 @@
      </div>
     </div>
    </footer>
+  </div>
+
+  <!-- Login modal -->
+  <div id="login-modal" class="hidden modal-overlay">
+    <div class="modal-content">
+      <button class="modal-close" id="login-close">×</button>
+      <h3>Entrar</h3>
+      <p style="color:#64748b;">Informe seu e-mail e senha para acessar sua conta.</p>
+      <input id="login-email" class="modal-input" placeholder="Email" type="email">
+      <input id="login-pass" class="modal-input" placeholder="Senha" type="password">
+      <div style="display:flex;gap:8px;width:100%">
+        <button id="login-submit" class="btn-primary" style="flex:1">Entrar</button>
+        <button id="login-cancel" class="btn-secondary" style="flex:1">Cancelar</button>
+      </div>
+      
+    </div>
+  </div>
+
+  <!-- Floating AI chat widget -->
+    <div id="chat-toggle" title="Abrir chat" style="position:fixed;right:18px;bottom:18px;z-index:99999;">
+    <button style="width:56px;height:56px;border-radius:9999px;background:linear-gradient(135deg,#7c3aed,#6366f1);border:none;color:white;box-shadow:0 8px 30px rgba(99,102,241,0.18);font-weight:700;">IA</button>
+  </div>
+    <!-- Floating theme toggle (outside layout) -->
+    <div id="theme-toggle-floating" title="Alternar tema" style="position:fixed;right:18px;bottom:86px;z-index:99999;">
+      <button aria-label="Alternar tema" style="width:46px;height:46px;border-radius:9999px;background:rgba(255,255,255,0.95);border:none;color:#0f172a;box-shadow:0 8px 30px rgba(2,6,23,0.12);font-weight:700;">🌓</button>
+    </div>
+  <div id="chat-drawer" class="hidden" style="position:fixed;right:22px;bottom:86px;z-index:99999;width:360px;max-width:92vw;border-radius:16px;overflow:hidden;box-shadow:0 30px 80px rgba(2,6,23,0.2);">
+    <div style="background:#ffffff;padding:12px 14px;border-bottom:1px solid rgba(2,6,23,0.06);display:flex;align-items:center;justify-content:space-between;">
+      <strong style="color:#0f172a">Assistente IA</strong>
+      <button id="chat-close" aria-label="Fechar" style="background:transparent;border:none;font-size:18px;">×</button>
+    </div>
+    <div style="background:#fff;padding:8px 12px;border-bottom:1px solid rgba(2,6,23,0.04);display:flex;align-items:center;gap:8px;">
+      <button id="drawer-mentors-toggle" class="btn-secondary" style="padding:6px 10px;border-radius:8px;">Mentores</button>
+      <div style="flex:1;color:#334155;font-size:13px;">Converse com a IA ou selecione um mentor para direcionar sua dúvida.</div>
+    </div>
+    <div id="drawer-mentors" class="hidden" style="background:#f8fafc;padding:10px;max-height:160px;overflow:auto;display:flex;flex-direction:column;gap:8px;border-bottom:1px solid rgba(2,6,23,0.04);"></div>
+    <div id="drawer-messages" style="background:#f8fafc;padding:12px;max-height:220px;overflow:auto;display:flex;flex-direction:column;gap:10px;"></div>
+    <div style="padding:10px;background:#fff;border-top:1px solid rgba(2,6,23,0.06);display:flex;gap:8px;">
+      <input id="drawer-input" placeholder="Pergunte algo sobre seu negócio" style="flex:1;padding:10px;border:1px solid #e6edf3;border-radius:12px;" />
+      <button id="drawer-send" class="btn-primary" style="padding:8px 12px;border-radius:10px;">Enviar</button>
+    </div>
   </div>
 
   <script src="script.js"></script>
