@@ -396,9 +396,9 @@ function initScript() {
   const preloader = document.getElementById('preloader');
   const hidePreloader = () => {
     if (!preloader) return;
-    preloader.classList.add('fade-out'); // Adds the animation class
+    preloader.classList.add('fade-out');
     setTimeout(() => {
-      preloader.classList.add('hidden'); // Fully hides after fade animation finishes
+      preloader.classList.add('hidden');
     }, 400); 
   };
   if (preloader) {
@@ -471,6 +471,11 @@ function initScript() {
         aiChat.scrollTop = aiChat.scrollHeight;
         showToast('success', 'Assistente', 'Orientação gerada com sucesso.');
       } catch (err) {
+        const nodes = aiChat.querySelectorAll('div');
+        if (nodes && nodes.length) {
+          const last = nodes[nodes.length - 1];
+          if (last && (last.textContent === 'Pensando...' || last.innerText === 'Pensando...')) last.remove();
+        }
         const errorMessage = document.createElement('div');
         errorMessage.className = 'ai-message assistant';
         errorMessage.textContent = 'Não foi possível gerar uma resposta no momento. Tente novamente mais tarde.';
@@ -521,19 +526,29 @@ function initScript() {
     });
   }
 
-  // Theme toggle: read/write preference
+  /* ==========================================
+     THEME TOGGLE SYSTEM (INJECTED ON HTML & BODY)
+     ========================================== */
   function applyStoredTheme() {
     try {
       const t = localStorage.getItem('impulsa_theme') || 'light';
-      if (t === 'dark') document.documentElement.classList.add('dark'); else document.documentElement.classList.remove('dark');
+      if (t === 'dark') {
+        document.documentElement.classList.add('dark');
+        document.body.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+        document.body.classList.remove('dark');
+      }
       try { const f = document.getElementById('theme-toggle-floating'); if (f && f.firstElementChild) f.firstElementChild.textContent = (t === 'dark' ? '🌙' : '☀️'); } catch (e) {}
     } catch (e) {}
   }
   applyStoredTheme();
+
   const themeToggleFloating = document.getElementById('theme-toggle-floating');
   const handleThemeToggle = (ev) => {
     if (ev) ev.preventDefault();
     const isDark = document.documentElement.classList.toggle('dark');
+    document.body.classList.toggle('dark', isDark);
     try { localStorage.setItem('impulsa_theme', isDark ? 'dark' : 'light'); } catch (e) {}
     try { const f = document.getElementById('theme-toggle-floating'); if (f && f.firstElementChild) f.firstElementChild.textContent = (isDark ? '🌙' : '☀️'); } catch (e) {}
     showToast('info', 'Tema', `Tema ${isDark ? 'escuro' : 'claro'} ativado.`);
