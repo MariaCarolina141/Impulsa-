@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="pt-BR" class="h-full">
+<html lang="pt-BR" class="h-full scroll-smooth">
  <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -30,7 +30,7 @@
     }
     .quiz-progress-bar-fill {
       height: 100%;
-      width: 20%; /* Começa em 20% */
+      width: 20%;
       background: linear-gradient(135deg, #6366f1, #7c3aed);
       border-radius: 9999px;
       transition: width 0.4s ease;
@@ -73,15 +73,6 @@
       <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg" style="color: #e2e8f0;" onclick="toggleMobile()"> <i data-lucide="menu" style="width:24px;height:24px;"></i> </button>
      </div>
     </div>
-    <div id="mobile-menu" class="hidden md:hidden border-t px-4 pb-4 bg-slate-950">
-     <div class="flex flex-col gap-3 pt-3">
-       <a href="index.html#servicos" class="text-sm font-medium py-2" style="color: #e2e8f0;">Serviços</a> 
-       <a href="index.html#apoio" class="text-sm font-medium py-2" style="color: #e2e8f0;">Apoio</a> 
-       <a href="index.html#projetos" class="text-sm font-medium py-2" style="color: #e2e8f0;">Projetos</a> 
-       <a href="index.html#tecnologia" class="text-sm font-medium py-2" style="color: #e2e8f0;">Tecnologia</a> 
-       <a href="quiz.html" class="text-sm font-medium py-2 text-white">Fazer Quiz</a>
-     </div>
-    </div>
    </nav>
 
    <header class="hero-pattern relative overflow-hidden" style="background: linear-gradient(135deg, #0d1228 0%, #271f5a 100%); padding-top: 140px; padding-bottom: 80px;">
@@ -92,7 +83,7 @@
        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight text-white" style="font-family: 'Plus Jakarta Sans', sans-serif;">Descubra seu <span style="color:#a78bfa;">perfil empreendedor</span> em minutos</h1>
        <p class="mt-5 max-w-2xl text-base sm:text-lg leading-relaxed" style="color: rgba(255,255,255,0.74);">Responda perguntas rápidas e receba um perfil personalizado com orientações práticas para o seu negócio.</p>
        <div class="mt-8 flex flex-wrap gap-4">
-        <a href="#quiz-start" class="quiz-section-btn">Começar agora</a>
+        <a href="#quiz-container" class="quiz-section-btn">Começar agora</a>
        </div>
       </div>
       <div class="quiz-card p-8 sm:p-10">
@@ -104,18 +95,18 @@
     </div>
    </header>
 
-   <main class="max-w-7xl mx-auto px-4 sm:px-6 pb-20">
-    <section id="quiz-start" class="py-14">
-     <div class="quiz-card p-8 sm:p-10">
+   <main class="max-w-7xl mx-auto px-4 sm:px-6 pb-12">
+    <section id="quiz-container" class="py-14 scroll-mt-24">
+     <div class="quiz-card p-8 sm:p-10 bg-white">
       <div class="quiz-progress">
        <div class="flex items-center justify-between gap-4 mb-4">
-        <span class="text-xs uppercase tracking-[0.2em] text-slate-500">Progresso do Quiz</span>
+        <span class="text-xs uppercase tracking-[0.2em] text-slate-500 font-bold">Progresso do Quiz</span>
         <span id="quiz-progress-text" class="text-sm font-semibold text-slate-700">Pergunta 1 de 5</span>
        </div>
        <div class="quiz-progress-bar"><div id="quiz-progress-fill" class="quiz-progress-bar-fill"></div></div>
       </div>
       
-      <form id="quiz-form" class="mt-10 space-y-10" onsubmit="event.preventDefault();">
+      <form id="quiz-form" class="mt-10 space-y-6" onsubmit="event.preventDefault();">
         
         <div class="quiz-step" data-step="1">
          <div class="mb-6">
@@ -123,22 +114,22 @@
           <h2 class="mt-2 text-2xl font-bold text-slate-900">Em qual fase está seu negócio hoje?</h2>
          </div>
          <div class="grid gap-4 sm:grid-cols-2 mb-6">
-          <label class="cursor-pointer rounded-3xl border border-slate-200 p-5 transition block hover:border-indigo-300 hover:shadow-md">
+          <label class="cursor-pointer rounded-3xl border border-slate-200 p-5 transition block hover:border-indigo-300 hover:shadow-md bg-white">
            <input type="radio" name="q1" value="ideia" class="sr-only">
            <div class="font-semibold mb-2 text-slate-800">Ideia inicial</div>
            <div class="text-sm text-slate-600">Ainda em construção da proposta e validação.</div>
           </label>
-          <label class="cursor-pointer rounded-3xl border border-slate-200 p-5 transition block hover:border-indigo-300 hover:shadow-md">
+          <label class="cursor-pointer rounded-3xl border border-slate-200 p-5 transition block hover:border-indigo-300 hover:shadow-md bg-white">
            <input type="radio" name="q1" value="validacao" class="sr-only">
            <div class="font-semibold mb-2 text-slate-800">Validação</div>
            <div class="text-sm text-slate-600">Testando com clientes e ajustando oferta.</div>
           </label>
-          <label class="cursor-pointer rounded-3xl border border-slate-200 p-5 transition block hover:border-indigo-300 hover:shadow-md">
+          <label class="cursor-pointer rounded-3xl border border-slate-200 p-5 transition block hover:border-indigo-300 hover:shadow-md bg-white">
            <input type="radio" name="q1" value="crescimento" class="sr-only">
            <div class="font-semibold mb-2 text-slate-800">Crescimento</div>
            <div class="text-sm text-slate-600">Buscando ampliar resultados e alcance.</div>
           </label>
-          <label class="cursor-pointer rounded-3xl border border-slate-200 p-5 transition block hover:border-indigo-300 hover:shadow-md">
+          <label class="cursor-pointer rounded-3xl border border-slate-200 p-5 transition block hover:border-indigo-300 hover:shadow-md bg-white">
            <input type="radio" name="q1" value="escala" class="sr-only">
            <div class="font-semibold mb-2 text-slate-800">Escala</div>
            <div class="text-sm text-slate-600">Já consolidado e preparado para expandir.</div>
@@ -153,25 +144,25 @@
           <h2 class="mt-2 text-2xl font-bold text-slate-900">Onde você quer acelerar com mais força?</h2>
          </div>
          <div class="grid gap-4 sm:grid-cols-2 mb-6">
-          <label class="cursor-pointer rounded-3xl border border-slate-200 p-5 transition block hover:border-indigo-300 hover:shadow-md">
+          <label class="cursor-pointer rounded-3xl border border-slate-200 p-5 transition block hover:border-indigo-300 hover:shadow-md bg-white">
            <input type="radio" name="q2" value="vendas" class="sr-only">
            <div class="font-semibold mb-2 text-slate-800">Vendas</div>
            <div class="text-sm text-slate-600">Aumentar conversões e clientes recorrentes.</div>
           </label>
-          <label class="cursor-pointer rounded-3xl border border-slate-200 p-5 transition block hover:border-indigo-300 hover:shadow-md">
+          <label class="cursor-pointer rounded-3xl border border-slate-200 p-5 transition block hover:border-indigo-300 hover:shadow-md bg-white">
            <input type="radio" name="q2" value="financeiro" class="sr-only">
            <div class="font-semibold mb-2 text-slate-800">Financeiro</div>
            <div class="text-sm text-slate-600">Controlar fluxo de caixa e margem.</div>
           </label>
-          <label class="cursor-pointer rounded-3xl border border-slate-200 p-5 transition block hover:border-indigo-300 hover:shadow-md">
+          <label class="cursor-pointer rounded-3xl border border-slate-200 p-5 transition block hover:border-indigo-300 hover:shadow-md bg-white">
            <input type="radio" name="q2" value="marketing" class="sr-only">
            <div class="font-semibold mb-2 text-slate-800">Marketing</div>
            <div class="text-sm text-slate-600">Melhorar presença digital e comunicação.</div>
           </label>
-          <label class="cursor-pointer rounded-3xl border border-slate-200 p-5 transition block hover:border-indigo-300 hover:shadow-md">
+          <label class="cursor-pointer rounded-3xl border border-slate-200 p-5 transition block hover:border-indigo-300 hover:shadow-md bg-white">
            <input type="radio" name="q2" value="inovacao" class="sr-only">
            <div class="font-semibold mb-2 text-slate-800">Inovação</div>
-           <div class="text-sm text-slate-600">Criar novas soluções e diferenciais.</div>
+           <div class="text-sm text-slate-600">Criar novas soluções e differentiation.</div>
           </label>
          </div>
          <button type="button" class="quiz-next quiz-section-btn w-full justify-center">Próxima pergunta</button>
@@ -183,21 +174,22 @@
           <h2 class="mt-2 text-2xl font-bold text-slate-900">Qual palavra descreve melhor seu estilo?</h2>
          </div>
          <div class="grid gap-4 sm:grid-cols-2 mb-6">
-          <label class="cursor-pointer rounded-3xl border border-slate-200 p-5 transition block hover:border-indigo-300 hover:shadow-md">
+          <label class="cursor-pointer rounded-3xl border border-slate-200 p-5 transition block hover:border-indigo-300 hover:shadow-md bg-white">
            <input type="radio" name="q3" value="criativo" class="sr-only">
            <div class="font-semibold mb-2 text-slate-800">Criativo</div>
            <div class="text-sm text-slate-600">Gosta de novas ideias e abordagens fora da caixa.</div>
           </label>
-          <label class="cursor-pointer rounded-3xl border border-slate-200 p-5 transition block hover:border-indigo-300 hover:shadow-md">
+          <label class="cursor-pointer rounded-3xl border border-slate-200 p-5 transition block hover:border-indigo-300 hover:shadow-md bg-white">
            <input type="radio" name="q3" value="estavel" class="sr-only">
+           <div class="font-semibold mb-2 text-slate-800">Estável</div>
            <div class="text-sm text-slate-600">Prefere processos seguros e decisões consistentes.</div>
           </label>
-          <label class="cursor-pointer rounded-3xl border border-slate-200 p-5 transition block hover:border-indigo-300 hover:shadow-md">
+          <label class="cursor-pointer rounded-3xl border border-slate-200 p-5 transition block hover:border-indigo-300 hover:shadow-md bg-white">
            <input type="radio" name="q3" value="estrategico" class="sr-only">
            <div class="font-semibold mb-2 text-slate-800">Estratégico</div>
            <div class="text-sm text-slate-600">Planeja ações com foco em resultados mensuráveis.</div>
           </label>
-          <label class="cursor-pointer rounded-3xl border border-slate-200 p-5 transition block hover:border-indigo-300 hover:shadow-md">
+          <label class="cursor-pointer rounded-3xl border border-slate-200 p-5 transition block hover:border-indigo-300 hover:shadow-md bg-white">
            <input type="radio" name="q3" value="analitico" class="sr-only">
            <div class="font-semibold mb-2 text-slate-800">Analítico</div>
            <div class="text-sm text-slate-600">Baseia decisões em dados e indicadores.</div>
@@ -212,22 +204,22 @@
           <h2 class="mt-2 text-2xl font-bold text-slate-900">Você toma decisões com base em:</h2>
          </div>
          <div class="grid gap-4 sm:grid-cols-2 mb-6">
-          <label class="cursor-pointer rounded-3xl border border-slate-200 p-5 transition block hover:border-indigo-300 hover:shadow-md">
+          <label class="cursor-pointer rounded-3xl border border-slate-200 p-5 transition block hover:border-indigo-300 hover:shadow-md bg-white">
            <input type="radio" name="q4" value="intuicao" class="sr-only">
            <div class="font-semibold mb-2 text-slate-800">Intuição</div>
            <div class="text-sm text-slate-600">Sente o momento certo para agir.</div>
           </label>
-          <label class="cursor-pointer rounded-3xl border border-slate-200 p-5 transition block hover:border-indigo-300 hover:shadow-md">
+          <label class="cursor-pointer rounded-3xl border border-slate-200 p-5 transition block hover:border-indigo-300 hover:shadow-md bg-white">
            <input type="radio" name="q4" value="dados" class="sr-only">
            <div class="font-semibold mb-2 text-slate-800">Dados</div>
            <div class="text-sm text-slate-600">Analisa métricas e desempenho antes de agir.</div>
           </label>
-          <label class="cursor-pointer rounded-3xl border border-slate-200 p-5 transition block hover:border-indigo-300 hover:shadow-md">
+          <label class="cursor-pointer rounded-3xl border border-slate-200 p-5 transition block hover:border-indigo-300 hover:shadow-md bg-white">
            <input type="radio" name="q4" value="planejamento" class="sr-only">
            <div class="font-semibold mb-2 text-slate-800">Planejamento</div>
            <div class="text-sm text-slate-600">Estrutura projetos com clareza e etapas definidas.</div>
           </label>
-          <label class="cursor-pointer rounded-3xl border border-slate-200 p-5 transition block hover:border-indigo-300 hover:shadow-md">
+          <label class="cursor-pointer rounded-3xl border border-slate-200 p-5 transition block hover:border-indigo-300 hover:shadow-md bg-white">
            <input type="radio" name="q4" value="colaboracao" class="sr-only">
            <div class="font-semibold mb-2 text-slate-800">Colaboração</div>
            <div class="text-sm text-slate-600">Busca apoio e sinergia com parceiros.</div>
@@ -242,22 +234,22 @@
           <h2 class="mt-2 text-2xl font-bold text-slate-900">Qual apoio faz mais sentido para você hoje?</h2>
          </div>
          <div class="grid gap-4 sm:grid-cols-2 mb-6">
-          <label class="cursor-pointer rounded-3xl border border-slate-200 p-5 transition block hover:border-indigo-300 hover:shadow-md">
+          <label class="cursor-pointer rounded-3xl border border-slate-200 p-5 transition block hover:border-indigo-300 hover:shadow-md bg-white">
            <input type="radio" name="q5" value="mentorias" class="sr-only">
            <div class="font-semibold mb-2 text-slate-800">Mentorias</div>
            <div class="text-sm text-slate-600">Apoio direto e estratégico com especialistas.</div>
           </label>
-          <label class="cursor-pointer rounded-3xl border border-slate-200 p-5 transition block hover:border-indigo-300 hover:shadow-md">
+          <label class="cursor-pointer rounded-3xl border border-slate-200 p-5 transition block hover:border-indigo-300 hover:shadow-md bg-white">
            <input type="radio" name="q5" value="workshops" class="sr-only">
            <div class="font-semibold mb-2 text-slate-800">Workshops</div>
            <div class="text-sm text-slate-600">Aprendizado prático em grupo e execução rápida.</div>
           </label>
-          <label class="cursor-pointer rounded-3xl border border-slate-200 p-5 transition block hover:border-indigo-300 hover:shadow-md">
+          <label class="cursor-pointer rounded-3xl border border-slate-200 p-5 transition block hover:border-indigo-300 hover:shadow-md bg-white">
            <input type="radio" name="q5" value="consultorias" class="sr-only">
            <div class="font-semibold mb-2 text-slate-800">Consultorias</div>
            <div class="text-sm text-slate-600">Diagnóstico e plano personalizado.</div>
           </label>
-          <label class="cursor-pointer rounded-3xl border border-slate-200 p-5 transition block hover:border-indigo-300 hover:shadow-md">
+          <label class="cursor-pointer rounded-3xl border border-slate-200 p-5 transition block hover:border-indigo-300 hover:shadow-md bg-white">
            <input type="radio" name="q5" value="digital" class="sr-only">
            <div class="font-semibold mb-2 text-slate-800">Digital</div>
            <div class="text-sm text-slate-600">Ferramentas online e automações.</div>
@@ -281,13 +273,6 @@
   </div>
 
   <script>
-    if (typeof lucide !== 'undefined') { lucide.createIcons(); }
-
-    function toggleMobile() {
-      const menu = document.getElementById('mobile-menu');
-      menu.classList.toggle('hidden');
-    }
-
     document.addEventListener('DOMContentLoaded', function() {
       const steps = document.querySelectorAll('.quiz-step');
       const progressText = document.getElementById('quiz-progress-text');
@@ -296,29 +281,32 @@
       const resultTitle = document.getElementById('quiz-result-title');
       const resultSummary = document.getElementById('quiz-result-summary');
       const form = document.getElementById('quiz-form');
+      const quizSection = document.getElementById('quiz-container');
       
       let currentStep = 0;
       const totalSteps = steps.length;
+
+      // Função para rolar a tela suavemente até o início das perguntas
+      function focarNoQuiz() {
+        quizSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
 
       // Adiciona o evento de clique nos cards
       steps.forEach((step, stepIdx) => {
         const labels = step.querySelectorAll('label');
 
         labels.forEach(label => {
-          label.addEventListener('click', function(e) {
-            // Desmarca todos os outros desta pergunta específica
+          label.addEventListener('click', function() {
             labels.forEach(l => {
               l.style.borderColor = '#e2e8f0';
               l.style.backgroundColor = '#ffffff';
               l.style.boxShadow = 'none';
             });
             
-            // Ativa visualmente o clicado
             this.style.borderColor = '#6366f1';
             this.style.backgroundColor = '#f5f3ff';
             this.style.boxShadow = '0 10px 15px -3px rgba(99, 102, 241, 0.1)';
             
-            // Ativa o botão invisível correspondente
             const radio = this.querySelector('input[type="radio"]');
             if (radio) radio.checked = true;
           });
@@ -339,8 +327,10 @@
               currentStep++;
               steps[currentStep].classList.remove('hidden');
               atualizarProgresso();
+              // Força o navegador a focar na nova pergunta para não se perder no espaço branco!
+              setTimeout(focarNoQuiz, 50);
             } else {
-              // Chegou no final das 5 perguntas
+              // Tela final de resultado
               steps[currentStep].classList.add('hidden');
               
               const q1 = form.querySelector('input[name="q1"]:checked')?.value;
@@ -363,6 +353,7 @@
               
               progressText.innerText = "Quiz Concluído!";
               progressFill.style.width = "100%";
+              setTimeout(focarNoQuiz, 50);
             }
           });
         }
@@ -370,30 +361,4 @@
 
       function atualizarProgresso() {
         progressText.innerText = `Pergunta ${currentStep + 1} de ${totalSteps}`;
-        progressFill.style.width = `${((currentStep + 1) / totalSteps) * 100}%`;
-      }
-
-      document.getElementById('quiz-restart').addEventListener('click', function() {
-        form.reset();
-        currentStep = 0;
-        resultCard.classList.add('hidden');
-        
-        steps.forEach((s, idx) => {
-          const labels = s.querySelectorAll('label');
-          labels.forEach(l => {
-            l.style.borderColor = '#e2e8f0';
-            l.style.backgroundColor = '#ffffff';
-            l.style.boxShadow = 'none';
-          });
-          
-          if (idx === 0) s.classList.remove('hidden');
-          else s.classList.add('hidden');
-        });
-        atualizarProgresso();
-      });
-
-      atualizarProgresso();
-    });
-  </script>
- </body>
-</html>
+        progress
