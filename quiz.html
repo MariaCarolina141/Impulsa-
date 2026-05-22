@@ -227,9 +227,158 @@
       </form>
      </div>
     </section>
-   </main>
+  </main>
   </div>
-  <script src="script.js"></script>
-    <script>document.addEventListener('DOMContentLoaded', function(){ if (typeof initQuizPage === 'function') try{ initQuizPage(); } catch(e){ console.warn('initQuizPage error', e); } });</script>
+
+  <script>
+    // Inicializa os ícones do Lucide caso use algum na página
+    if (typeof lucide !== 'undefined') {
+      lucide.createIcons();
+    }
+
+    // Menu Mobile Toggle
+    function toggleMobile() {
+      const menu = document.getElementById('mobile-menu');
+      menu.classList.toggle('hidden');
+    }
+
+    // ==========================================
+    // LOGICA DO QUIZ INTERATIVO
+    // ==========================================
+    document.addEventListener('DOMContentLoaded', function() {
+      const steps = document.querySelectorAll('.quiz-step');
+      const progressText = document.getElementById('quiz-progress-text');
+      const progressFill = document.getElementById('quiz-progress-fill');
+      const resultCard = document.getElementById('quiz-result-card');
+      const resultTitle = document.getElementById('quiz-result-title');
+      const resultSummary = document.getElementById('quiz-result-summary');
+      const form = document.getElementById('quiz-form');
+      
+      let currentStep = 0;
+      const totalSteps = steps.length;
+
+      // 1. Dar feedback visual ao clicar nos cards de opção
+      steps.forEach(step => {
+        const labels = step.querySelectorAll('label');
+        const radioInputs = step.querySelectorAll('input[type="radio"]');
+
+        labels.forEach(label => {
+          label.addEventListener('click', function() {
+            // Remove o estilo ativo de todos os labels DESTA pergunta
+            labels.forEach(l => {
+              l.classList.remove('border-indigo-600', 'bg-indigo-50/50', 'ring-2', 'ring-indigo-600/20');
+              l.classList.add('border-slate-200');
+            });
+            
+            // Adiciona o estilo ativo no label clicado
+            this.classList.remove('border-slate-200');
+            this.classList.add('border-indigo-600', 'bg-indigo-50/50', 'ring-2', 'ring-indigo-600/20');
+            
+            // Marca o input de rádio escondido como checado
+            const radio = this.querySelector('input[type="radio"]');
+            if (radio) radio.checked = true;
+          });
+        });
+
+        // 2. Lógica do botão "Próxima Pergunta" / "Ver Resultado"
+        const nextBtn = step.querySelector('.quiz-next');
+        if (nextBtn) {
+          nextBtn.addEventListener('click', function() {
+            // Verifica se o usuário respondeu a pergunta atual antes de passar
+            const checkedRadio = step.querySelector('input[type="radio"]:checked');
+            if (!checkedRadio) {
+              alert('Por favor, selecione uma opção antes de continuar! 😊');
+              return;
+            }
+
+            // Se não for a última pergunta, avança
+            if (currentStep < totalSteps - 1) {
+              steps[currentStep].classList.add('hidden');
+              steps[currentStep].classList.remove('active');
+              
+              currentStep++;
+              
+              steps[currentStep].classList.remove('hidden');
+              steps[currentStep].classList.add('active');
+              
+              atualizarProgresso();
+            } else {
+              // Se for a última, mostra o resultado final personalizado!
+              mostrarResultado();
+            }
+          });
+        }
+      });
+
+      // Função para atualizar a barra de progresso no topo
+      function atualizarProgresso() {
+        progressText.innerText = `Pergunta ${currentStep + 1} de ${totalSteps}`;
+        const porcentagem = ((currentStep + 1) / totalSteps) * 100;
+        progressFill.style.width = `${porcentagem}%`;
+      }
+
+      // Função para calcular e exibir o perfil com base nas respostas
+      function mostrarResultado() {
+        // Esconde a última pergunta
+        steps[currentStep].classList.add('hidden');
+        
+        // Pega as respostas marcadas
+        const q1 = form.querySelector('input[name="q1"]:checked')?.value;
+        const q3 = form.querySelector('input[name="q3"]:checked')?.value;
+
+        let perfil = "Empreendedor Estratégico";
+        let descricao = "Você planeja suas ações com foco em metas reais e adora medir resultados. Seu negócio tem bases sólidas e está pronto para receber mentorias de alto nível para escalar com segurança e dominar o mercado!";
+
+        // Uma lógica simples para mudar o resultado dependendo do que responderam
+        if (q3 === 'criativo' || q1 === 'ideia') {
+          perfil = "Empreendedor Visionário & Criativo";
+          descricao = "Sua mente não para! Você foca em inovação, soluções fora da caixa e tem uma intuição forte para identificar oportunidades no mercado. O Impulsa+ vai te ajudar a estruturar essas ideias em planos práticos e focar no marketing digital para decolar de vez!";
+        } else if (q3 === 'analitico' || q3 === 'estavel') {
+          perfil = "Empreendedor Analítico & Preciso";
+          descricao = "Para você, dados valem ouro. Suas decisões são seguras e você prioriza manter a casa organizada, principalmente o fluxo de caixa. O suporte ideal para você envolve consultorias de otimização de processos e ferramentas avançadas de automação.";
+        }
+
+        // Insere os textos e revela o card de resultado
+        resultTitle.innerText = `Seu perfil é: ${perfil} 🎉`;
+        resultSummary.innerText = descricao;
+        resultCard.classList.remove('hidden');
+        
+        // Atualiza a barra para 100%
+        progressText.innerText = "Quiz Concluído!";
+        progressFill.style.width = "100%";
+      }
+
+      // Botão de reiniciar o quiz
+      const restartBtn = document.getElementById('quiz-restart');
+      if (restartBtn) {
+        restartBtn.addEventListener('click', function() {
+          form.reset();
+          currentStep = 0;
+          
+          // Limpa estilos das bordas
+          const allLabels = form.querySelectorAll('label');
+          allLabels.forEach(l => {
+            l.classList.remove('border-indigo-600', 'bg-indigo-50/50', 'ring-2', 'ring-indigo-600/20');
+            l.classList.add('border-slate-200');
+          });
+
+          resultCard.classList.add('hidden');
+          steps.forEach((s, idx) => {
+            if (idx === 0) {
+              s.classList.remove('hidden');
+              s.classList.add('active');
+            } else {
+              s.classList.add('hidden');
+              s.classList.remove('active');
+            }
+          });
+          atualizarProgresso();
+        });
+      }
+
+      // Inicializa o primeiro estado do progresso
+      atualizarProgresso();
+    });
+  </script>
  </body>
 </html>
