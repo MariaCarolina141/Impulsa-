@@ -20,40 +20,61 @@
       <div class="preloader-dots"><span></span><span></span><span></span></div>
     </div>
   </div>
+  
   <div id="app-wrapper" class="w-full h-full overflow-auto">
     <!-- =========================
          NAVBAR
     ========================= -->
-    <nav id="navbar" class="fixed top-0 left-0 w-full z-50 nav-scroll" style="background: transparent; border-bottom: none;">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-     <div class="flex items-center justify-between h-16 sm:h-20">
-      <div class="flex items-center gap-3">
-       <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background: linear-gradient(135deg, #4f46e5, #6366f1);">
-        <span style="font-weight:800; color:#fff; font-size:16px;">+</span>
-       </div><span class="brand-title text-lg sm:text-xl font-bold" style="font-family: 'Plus Jakarta Sans', sans-serif; color: #91d7f3;">Impulsa<span class="brand-plus" style="color: #fae571;">+</span></span>
+   <nav id="navbar" class="fixed top-0 left-0 w-full z-50 nav-scroll bg-slate-900/90 backdrop-blur-md" style="border-bottom: none;">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16 sm:h-20">
+          
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background: linear-gradient(135deg, #4f46e5, #6366f1);">
+              <span style="font-weight:800; color:#fff; font-size:16px;">+</span>
+            </div>
+            <span class="brand-title text-lg sm:text-xl font-bold" style="font-family: 'Plus Jakarta Sans', sans-serif; color: #91d7f3;">Impulsa<span class="brand-plus" style="color: #fae571;">+</span></span>
+          </div>
+          
+          <div class="hidden md:flex items-center gap-8">
+            <a href="#servicos" class="nav-link text-sm font-medium hover:opacity-70 transition-opacity" style="color: #8bd9fd;">Serviços</a> 
+            <a href="#apoio" class="nav-link text-sm font-medium hover:opacity-70 transition-opacity" style="color: #8bd9fd;">Apoio</a> 
+            <a href="#projetos" class="nav-link text-sm font-medium hover:opacity-70 transition-opacity" style="color: #8bd9fd;">Projetos</a> 
+            <a href="#tecnologia" class="nav-link text-sm font-medium hover:opacity-70 transition-opacity" style="color: #8bd9fd;">Tecnologia</a>
+            
+            <a href="quiz.html" class="text-sm font-medium text-white bg-purple-600/30 px-4 py-2 rounded-full hover:bg-purple-600/50 transition-all">Fazer Quiz</a>
+            
+            <div id="auth-area" class="flex items-center gap-2 ml-2">
+              <button id="login-btn" class="px-3 py-2 rounded-full text-sm" style="background: rgba(255,255,255,0.06); color: #fff;">Entrar</button>
+              <button id="logout-btn" class="px-3 py-2 rounded-full text-sm hidden" style="background: rgba(255,255,255,0.06); color: #fff;">Sair</button>
+              <button id="contact-btn" class="px-5 py-2.5 rounded-full text-sm font-semibold text-white transition-all hover:shadow-lg hover:scale-105" style="background: linear-gradient(135deg, #6366f1, #7c3aed);">Fale Conosco</button>
+              <span id="user-badge" style="color:#fff;font-weight:600;display:none;margin-left:6px;"></span>
+            </div>
+          </div>
+
+          <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg" style="color: #8bd9fd;" onclick="toggleMobile()"> 
+            <i data-lucide="menu" style="width:24px;height:24px;"></i> 
+          </button>
+
+        </div>
       </div>
-      <div class="hidden md:flex items-center gap-8"> <div class="hidden md:flex items-center gap-8"><a href="#servicos" class="nav-link text-sm font-medium hover:opacity-70 transition-opacity" style="color: #8bd9fd;">Serviços</a> <a href="#apoio" class="nav-link text-sm font-medium hover:opacity-70 transition-opacity" style="color: #8bd9fd;">Apoio</a> <a href="#projetos" class="nav-link text-sm font-medium hover:opacity-70 transition-opacity" style="color: #8bd9fd;">Projetos</a> <a href="#tecnologia" class="nav-link text-sm font-medium hover:opacity-70 transition-opacity" style="color: #8bd9fd;">Tecnologia</a>
-      </div><button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg" style="color: #8bd9fd;" onclick="toggleMobile()"> <i data-lucide="menu" style="width:24px;height:24px;"></i> </button>
-       <a href="/quiz.html" class="quiz-nav-btn">Fazer Quiz</a>
-        <div id="auth-area" style="display:inline-flex;align-items:center;gap:8px;margin-left:8px;">
-        <button id="login-btn" class="px-3 py-2 rounded-full text-sm" style="background: rgba(255,255,255,0.06); color: #fff;">Entrar</button>
-        <button id="logout-btn" class="px-3 py-2 rounded-full text-sm hidden" style="background: rgba(255,255,255,0.06); color: #fff;">Sair</button>
-        <button id="contact-btn" class="px-5 py-2.5 rounded-full text-sm font-semibold text-white transition-all hover:shadow-lg hover:scale-105" style="background: linear-gradient(135deg, #6366f1, #7c3aed);">Fale Conosco</button>
-        <span id="user-badge" style="color:#fff;font-weight:600;display:none;margin-left:6px;"></span>
+
+      <div id="mobile-menu" class="hidden md:hidden border-t px-4 pb-4 mobile-menu">
+        <div class="flex flex-col gap-3 pt-3">
+          <a href="#servicos" class="text-sm font-medium py-2" style="color: #e2e8f0;">Serviços</a> 
+          <a href="#apoio" class="text-sm font-medium py-2" style="color: #e2e8f0;">Apoio</a> 
+          <a href="#projetos" class="text-sm font-medium py-2" style="color: #e2e8f0;">Projetos</a> 
+          <a href="#tecnologia" class="text-sm font-medium py-2" style="color: #e2e8f0;">Tecnologia</a> 
+          <a href="quiz.html" class="text-sm font-medium py-2 text-white" style="color: #fff;">Fazer Quiz</a> 
+          <button id="contact-btn-mobile" class="px-5 py-2.5 rounded-full text-sm font-semibold text-white w-full" style="background: linear-gradient(135deg, #6366f1, #7c3aed);">Fale Conosco</button>
+        </div>
       </div>
-      </div><button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg" style="color: #8bd9fd;" onclick="toggleMobile()"> <i data-lucide="menu" style="width:24px;height:24px;"></i> </button>
-     </div>
-    </div><!-- Mobile menu -->
-    <div id="mobile-menu" class="hidden md:hidden border-t px-4 pb-4 mobile-menu">
-    <div class="flex flex-col gap-3 pt-3"><a href="#servicos" class="text-sm font-medium py-2" style="color: #e2e8f0;">Serviços</a> <a href="#apoio" class="text-sm font-medium py-2" style="color: #e2e8f0;">Apoio</a> <a href="#projetos" class="text-sm font-medium py-2" style="color: #e2e8f0;">Projetos</a> <a href="#tecnologia" class="text-sm font-medium py-2" style="color: #e2e8f0;">Tecnologia</a> <a href="/quiz.html" class="text-sm font-medium py-2 quiz-nav-btn" style="color: #fff;">Fazer Quiz</a> <button id="contact-btn-mobile" class="px-5 py-2.5 rounded-full text-sm font-semibold text-white w-full" style="background: linear-gradient(135deg, #6366f1, #7c3aed);">Fale Conosco</button>
-     </div>
-    </div>
-   </nav><!-- Hero -->
+    </nav>
     <!-- =========================
          HERO SECTION
     ========================= -->
-   <header class="hero-pattern relative overflow-hidden" style="background: linear-gradient(135deg, #003B73 0%, #00264d 60%, #001a36 100%); padding-top: 80px;">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 lg:py-32 relative z-10">
+   <header class="hero-pattern relative overflow-hidden" style="background: linear-gradient(135deg, #003B73 0%, #00264d 60%, #001a36 100%); padding-top: 140px;">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20 lg:py-24 relative z-10">
      <div class="grid lg:grid-cols-2 gap-12 items-center">
       <div>
        <div class="fade-up inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold mb-6" style="background: rgba(124,58,237,0.15); color: #7c3aed;"><span class="w-2 h-2 rounded-full pulse-dot" style="background:#7c3aed;"></span> Transformando o empreendedorismo brasileiro
@@ -66,46 +87,30 @@
         <button id="mentor-btn" class="px-7 py-3.5 rounded-full font-semibold transition-all hover:bg-white/10" style="color: white; border: 1.5px solid rgba(255,255,255,0.25);">Seja Mentor</button>
       </div>
        </div>
-      </div>
-     
-      <div class="fade-up delay-4 hidden lg:block"><!-- Stats cards -->
-       <div class="grid grid-cols-2 gap-4">
-        <div class="p-6 rounded-2xl" style="background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1);">
-         <div class="text-3xl font-extrabold counter-number" data-value="12" data-suffix="M+" style="font-family:'Plus Jakarta Sans',sans-serif; color:#ffffff;">
-          12M+
+       
+       <div class="fade-up delay-4 hidden lg:block">
+         <div class="grid grid-cols-2 gap-4">
+          <div class="p-6 rounded-2xl" style="background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1);">
+           <div class="text-3xl font-extrabold counter-number" data-value="12" data-suffix="M+" style="font-family:'Plus Jakarta Sans',sans-serif; color:#ffffff;">12M+</div>
+           <div class="text-sm mt-1" style="color:rgba(255,255,255,0.6);">Empreendedores atendidos</div>
+          </div>
+          <div class="p-6 rounded-2xl" style="background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1);">
+           <div class="text-3xl font-extrabold counter-number" data-value="5500" style="font-family:'Plus Jakarta Sans',sans-serif; color:#e76dffa4;">5.500</div>
+           <div class="text-sm mt-1" style="color:rgba(255,255,255,0.6);">Municípios alcançados</div>
+          </div>
+          <div class="p-6 rounded-2xl" style="background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1);">
+           <div class="text-3xl font-extrabold counter-number" data-value="800" data-suffix="+" style="font-family:'Plus Jakarta Sans',sans-serif; color:#ffffff;">800+</div>
+           <div class="text-sm mt-1" style="color:rgba(255,255,255,0.6);">Projetos ativos</div>
+          </div>
+          <div class="p-6 rounded-2xl" style="background: rgba(248, 246, 246, 0.07); border: 1px solid rgba(255,255,255,0.1);">
+           <div class="text-3xl font-extrabold counter-number" data-value="97" data-suffix="%" style="font-family:'Plus Jakarta Sans',sans-serif; color:#ffffff;">97%</div>
+           <div class="text-sm mt-1" style="color:rgba(255,255,255,0.6);">Satisfação dos clientes</div>
+          </div>
          </div>
-         <div class="text-sm mt-1" style="color:rgba(255,255,255,0.6);">
-          Empreendedores atendidos
-         </div>
-        </div>
-        <div class="p-6 rounded-2xl" style="background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1);">
-         <div class="text-3xl font-extrabold counter-number" data-value="5500" style="font-family:'Plus Jakarta Sans',sans-serif; color:#e76dffa4;">
-          5.500
-         </div>
-         <div class="text-sm mt-1" style="color:rgba(255,255,255,0.6);">
-          Municípios alcançados
-         </div>
-        </div>
-        <div class="p-6 rounded-2xl" style="background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1);">
-         <div class="text-3xl font-extrabold counter-number" data-value="800" data-suffix="+" style="font-family:'Plus Jakarta Sans',sans-serif; color:#ffffff;">
-          800+
-         </div>
-         <div class="text-sm mt-1" style="color:rgba(255,255,255,0.6);">
-          Projetos ativos
-         </div>
-        </div>
-        <div class="p-6 rounded-2xl" style="background: rgba(248, 246, 246, 0.07); border: 1px solid rgba(255,255,255,0.1);">
-         <div class="text-3xl font-extrabold counter-number" data-value="97" data-suffix="%" style="font-family:'Plus Jakarta Sans',sans-serif; color:#ffffff;">
-          97%
-         </div>
-         <div class="text-sm mt-1" style="color:rgba(255,255,255,0.6);">
-          Satisfação dos clientes
-         </div>
-        </div>
        </div>
       </div>
      </div>
-    </div><!-- Wave divider -->
+     
     <svg class="w-full" viewbox="0 0 1440 80" preserveaspectratio="none" style="display:block; margin-bottom:-1px;"><path d="M0,40 C360,80 720,0 1080,40 C1260,60 1380,50 1440,40 L1440,80 L0,80 Z" fill="#ffffff" />
     </svg>
    </header>
