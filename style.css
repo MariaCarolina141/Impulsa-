@@ -238,6 +238,9 @@ section p,
   border-radius: 999px;
 }
 
+/* =========================
+   PRELOADER
+========================= */
 .preloader {
   position: fixed;
   inset: 0;
@@ -247,12 +250,18 @@ section p,
   justify-content: center;
   z-index: 99999;
   opacity: 1;
-  transition: opacity 0.45s ease, visibility 0.45s ease;
+  visibility: visible;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+/* Transição de fade-out controlada via JS */
+.preloader.fade-out {
+  opacity: 0;
+  visibility: hidden;
 }
 
 .preloader.hidden {
-  opacity: 0;
-  visibility: hidden;
+  display: none !important;
 }
 
 .preloader-card {
@@ -312,6 +321,9 @@ section p,
   50% { transform: scale(1.55); opacity: 1; }
 }
 
+/* =========================
+   RESPONSIVE & NAVBAR STATES
+========================= */
 @media (max-width: 768px) {
   #navbar { padding-top: 8px; padding-bottom: 8px; }
   #navbar .max-w-7xl { padding-left: 1rem; padding-right: 1rem; }
@@ -327,6 +339,7 @@ section p,
     color: #e2e8f0 !important;
   }
 }
+
 #navbar.navbar-solid,
 #navbar:hover {
   background: rgba(7, 10, 27, 0.92);
@@ -359,6 +372,9 @@ section p,
   color: #f8fafc !important;
 }
 
+/* =========================
+   BUTTONS & AI COMPONENT
+========================= */
 .btn-primary {
   background: #ffffff;
   color: #4f46e5;
@@ -432,7 +448,9 @@ section p,
   align-self: flex-start;
 }
 
-/* Toast notifications */
+/* =========================
+   TOASTS & MODALS
+========================= */
 .toast-container {
   position: fixed;
   right: 20px;
@@ -468,7 +486,6 @@ section p,
 .toast .title { font-weight: 600; }
 .toast .message { font-size: 13px; color: #e6eef8; }
 
-/* Modal styles */
 .modal-overlay {
   position: fixed;
   inset: 0;
@@ -512,12 +529,13 @@ section p,
 .modal-input:focus { box-shadow: 0 0 0 3px rgba(99,102,241,0.12); border-color: #6366f1; }
 .hidden { display: none !important; }
 
-/* Floating chat drawer styles */
+/* =========================
+   COMPONENTS EXTRA
+========================= */
 #chat-drawer { border: 1px solid rgba(2,6,23,0.06); background: transparent; }
 #chat-drawer .drawer-header { padding: 12px 14px; }
 #drawer-messages { padding: 12px; max-height: 320px; overflow:auto; }
 
-/* Mentor panel tweaks */
 #mentor-panel .modal-input { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); color: #fff; }
 #mentor-panel h3 { color: #fff; }
 
