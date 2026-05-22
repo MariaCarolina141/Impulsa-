@@ -111,7 +111,6 @@ function enviarFormulario(event) {
     return;
   }
 
-  // Optionally save cadastro to localStorage
   try {
     const users = JSON.parse(localStorage.getItem('impulsa_signups') || '[]');
     users.push({ nome, email, date: new Date().toISOString() });
@@ -393,10 +392,14 @@ function initScript() {
     counterEls.forEach((el) => counterObserver.observe(el));
   }
 
+  /* INTEGRATION OF PRELOADER */
   const preloader = document.getElementById('preloader');
   const hidePreloader = () => {
     if (!preloader) return;
-    preloader.classList.add('hidden');
+    preloader.classList.add('fade-out'); // Adds the animation class
+    setTimeout(() => {
+      preloader.classList.add('hidden'); // Fully hides after fade animation finishes
+    }, 400); 
   };
   if (preloader) {
     if (document.readyState === 'complete') {
@@ -416,6 +419,7 @@ function initScript() {
   // Hook contact form submit
   const contactForm = document.getElementById('contact-form');
   if (contactForm) contactForm.addEventListener('submit', enviarContato);
+  
   // Hook signup button -> toggle inline signup panel
   const signupBtn = document.getElementById('signup-btn');
   const consultBtn = document.getElementById('consult-btn');
@@ -506,7 +510,6 @@ function initScript() {
         const users = JSON.parse(localStorage.getItem('impulsa_users') || '[]');
         users.push({ name: name.trim(), email: email.trim(), passwordHash: pwdHash, date: new Date().toISOString() });
         localStorage.setItem('impulsa_users', JSON.stringify(users));
-        // set current user for dashboard access
         try { localStorage.setItem('impulsa_current_user', email.trim()); } catch (e) {}
         showToast('success', 'Conta criada', 'Sua conta foi criada com sucesso.');
         signupForm.reset();
@@ -523,11 +526,9 @@ function initScript() {
     try {
       const t = localStorage.getItem('impulsa_theme') || 'light';
       if (t === 'dark') document.documentElement.classList.add('dark'); else document.documentElement.classList.remove('dark');
-      // update floating toggle UI if present
       try { const f = document.getElementById('theme-toggle-floating'); if (f && f.firstElementChild) f.firstElementChild.textContent = (t === 'dark' ? '🌙' : '☀️'); } catch (e) {}
     } catch (e) {}
   }
-  // Apply theme on load regardless of presence of a toggle in the DOM
   applyStoredTheme();
   const themeToggleFloating = document.getElementById('theme-toggle-floating');
   const handleThemeToggle = (ev) => {
@@ -578,13 +579,11 @@ function initScript() {
         const resp = await fetch('/api/login', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, password: pass }) });
         const data = await resp.json();
         if (!resp.ok) { showToast('error','Login', data.error || 'Falha ao autenticar'); return; }
-        // ensure user exists locally
         let users = [];
         try { users = JSON.parse(localStorage.getItem('impulsa_users') || '[]'); } catch (e) { users = []; }
         const found = users.find(u => (u.email||'').toLowerCase() === email.toLowerCase());
         if (!found) { try { users.push({ name: email.split('@')[0], email, passwordHash: '', date: new Date().toISOString() }); localStorage.setItem('impulsa_users', JSON.stringify(users)); } catch (e) {} }
         localStorage.setItem('impulsa_current_user', email);
-        // Frontend admin flags are disabled; admin access must be handled server-side and via a secure admin UI.
         if (loginModal) loginModal.classList.add('hidden');
         updateAuthUI();
         showToast('success','Login','Entrou com sucesso.');
@@ -593,10 +592,6 @@ function initScript() {
   }
   updateAuthUI();
 
-  // Admin UI disabled: admin pages are removed from frontend to avoid broken controls.
-  // If you need admin functionality, re-enable server-side verification and add a secure admin UI.
-
-  // 'Fale com um Consultor' -> scroll to contact form
   if (consultBtn && contatoSection) {
     consultBtn.addEventListener('click', (e) => {
       e.preventDefault();
@@ -685,7 +680,6 @@ function initScript() {
       m.style.color = '#0f172a';
       m.style.border = '1px solid #eef2f7';
     }
-    // allow simple HTML when needed
     if (text && text.startsWith('<')) m.innerHTML = text; else m.textContent = text;
     if (drawerMessages) drawerMessages.appendChild(m);
     if (drawerMessages) drawerMessages.scrollTop = drawerMessages.scrollHeight;
@@ -709,11 +703,9 @@ function initScript() {
       e.preventDefault();
       let q = drawerInput.value.trim();
       if (!q) return;
-      // detect mentor intent: starts with 'Conectar com mentor ' (set by mentor list)
       let mentorTag = null;
       if (q.toLowerCase().startsWith('conectar com mentor ')) {
         const rest = q.slice('Conectar com mentor '.length);
-        // split by colon or em dash or hyphen
         const colonIdx = rest.indexOf(':');
         const emIdx = rest.indexOf('—');
         const hyIdx = rest.indexOf('-');
@@ -722,7 +714,6 @@ function initScript() {
         if (endIdx === -1 || (hyIdx !== -1 && hyIdx < endIdx)) endIdx = hyIdx;
         if (endIdx === -1) endIdx = rest.length;
         mentorTag = rest.slice(0, endIdx).trim();
-        // question after colon/em-dash if present
         let questionPart = '';
         if (colonIdx !== -1) questionPart = rest.slice(colonIdx + 1).trim();
         else if (emIdx !== -1) {
@@ -739,210 +730,32 @@ function initScript() {
       try {
         const prompt = mentorTag ? `Você é um mentor experiente. Responda sucintamente e indique próximos passos. Pergunta para ${mentorTag}: ${q}` : q;
         const answer = await fetchAIResponse(prompt);
-        // remove last 'Pensando...'
         const nodes = drawerMessages.querySelectorAll('div');
         if (nodes && nodes.length) {
           const last = nodes[nodes.length - 1];
           if (last && (last.textContent === 'Pensando...' || last.innerText === 'Pensando...')) last.remove();
         }
-        // if mentorTag, save mentor request
         if (mentorTag) {
           try {
             const requests = JSON.parse(localStorage.getItem('impulsa_mentor_requests') || '[]');
             requests.push({ mentor: mentorTag, question: q, answerSnippet: (answer || '').slice(0,300), date: new Date().toISOString() });
             localStorage.setItem('impulsa_mentor_requests', JSON.stringify(requests));
           } catch (e) { console.warn('Falha ao salvar pedido de mentor', e); }
-          appendDrawerMessage(`<strong>🔖 Marcado para <em>${mentorTag}</em></strong><div style="margin-top:6px;">Resposta inicial:</div><div style="margin-top:6px;">${escapeHtml(answer)}</div>`, 'assistant');
+          appendDrawerMessage(`<strong>🔖 Marcado para <em>${mentorTag}</em></strong><div style="margin-top:6px">${answer}</div>`, 'assistant');
         } else {
-          appendDrawerMessage(`<strong>💡 Orientação</strong><div style="margin-top:6px;">${escapeHtml(answer)}</div>`, 'assistant');
+          appendDrawerMessage(answer, 'assistant');
         }
       } catch (err) {
-        console.error(err);
-        appendDrawerMessage('Não foi possível obter resposta agora.', 'assistant');
-      }
-    });
-    drawerInput.addEventListener('keydown', (ev) => {
-      if (ev.key === 'Enter' && !ev.shiftKey) {
-        ev.preventDefault();
-        drawerSend.click();
-      }
-    });
-  }
-
-  // Drawer mentor list handlers
-  const drawerMentorsToggle = document.getElementById('drawer-mentors-toggle');
-  const drawerMentors = document.getElementById('drawer-mentors');
-
-  function renderDrawerMentors() {
-    if (!drawerMentors) return;
-    drawerMentors.innerHTML = '';
-    let mentors = [];
-    try { mentors = JSON.parse(localStorage.getItem('impulsa_mentors') || '[]'); } catch (e) { mentors = []; }
-    if (!mentors || mentors.length === 0) {
-      const p = document.createElement('div'); p.style.color = '#64748b'; p.textContent = 'Nenhum mentor cadastrado ainda.'; drawerMentors.appendChild(p); return;
-    }
-    mentors.slice().reverse().forEach(m => {
-      const item = document.createElement('div');
-      item.style.display = 'flex'; item.style.flexDirection = 'column'; item.style.padding = '8px'; item.style.borderRadius = '8px'; item.style.background = '#fff'; item.style.cursor = 'pointer';
-      const title = document.createElement('div'); title.style.fontWeight = '700'; title.style.color = '#0f172a'; title.textContent = m.name + ' — ' + (m.area || 'Mentor');
-      const bio = document.createElement('div'); bio.style.fontSize = '13px'; bio.style.color = '#475569'; bio.style.marginTop = '6px'; bio.textContent = m.bio ? (m.bio.length > 140 ? m.bio.slice(0,137) + '...' : m.bio) : '';
-      item.appendChild(title); if (m.bio) item.appendChild(bio);
-      item.addEventListener('click', (ev) => {
-        ev.preventDefault();
-        drawerInput.value = `Conectar com mentor ${m.name} — ${m.area}: `;
-        drawerInput.focus();
-        showToast('info', 'Mentor selecionado', `Você está escrevendo ao mentor ${m.name}.`);
-      });
-      drawerMentors.appendChild(item);
-    });
-  }
-
-  if (drawerMentorsToggle) {
-    drawerMentorsToggle.addEventListener('click', (ev) => {
-      ev.preventDefault();
-      if (!drawerMentors) return;
-      drawerMentors.classList.toggle('hidden');
-      if (!drawerMentors.classList.contains('hidden')) renderDrawerMentors();
-    });
-  }
-
-  // Admin features removed from frontend: export and admin populate disabled to avoid exposing admin controls.
-  initQuizPage();
-}
-
-function initQuizPage() {
-  const quizForm = document.getElementById('quiz-form');
-  const progressFill = document.getElementById('quiz-progress-fill');
-  const progressText = document.getElementById('quiz-progress-text');
-  const resultCard = document.getElementById('quiz-result-card');
-  const resultTitle = document.getElementById('quiz-result-title');
-  const resultSummary = document.getElementById('quiz-result-summary');
-  const restartButton = document.getElementById('quiz-restart');
-  const steps = Array.from(document.querySelectorAll('.quiz-step'));
-  if (!quizForm || !steps.length || !progressFill || !progressText) return;
-
-  let currentStep = 0;
-  const totalSteps = steps.length;
-
-  const updateProgress = () => {
-    const progress = Math.round(((currentStep + 1) / totalSteps) * 100);
-    progressFill.style.width = `${progress}%`;
-    progressText.textContent = `Pergunta ${Math.min(currentStep + 1, totalSteps)} de ${totalSteps}`;
-  };
-
-  const showStep = (index) => {
-    steps.forEach((step, idx) => {
-      step.classList.toggle('hidden', idx !== index);
-      step.classList.toggle('active', idx === index);
-    });
-    if (resultCard) resultCard.classList.add('hidden');
-    updateProgress();
-    window.scrollTo({ top: quizForm.getBoundingClientRect().top + window.scrollY - 120, behavior: 'smooth' });
-  };
-
-  const getSelectedValue = (stepIndex) => {
-    const inputs = steps[stepIndex].querySelectorAll('input[type="radio"]');
-    const found = Array.from(inputs).find((input) => input.checked);
-    return found ? found.value : null;
-  };
-
-  const determineProfile = (answers) => {
-    const score = { visionario: 0, criativo: 0, estrategico: 0, analitico: 0 };
-    const mapping = {
-      ideia: ['visionario'],
-      validacao: ['estrategico'],
-      crescimento: ['visionario'],
-      escala: ['estrategico'],
-      vendas: ['estrategico'],
-      financeiro: ['analitico'],
-      marketing: ['criativo'],
-      inovacao: ['visionario'],
-      criativo: ['criativo'],
-      estavel: ['estrategico'],
-      estrategico: ['estrategico'],
-      analitico: ['analitico'],
-      intuicao: ['criativo'],
-      dados: ['analitico'],
-      planejamento: ['estrategico'],
-      colaboracao: ['visionario'],
-      mentorias: ['estrategico'],
-      workshops: ['visionario'],
-      consultorias: ['analitico'],
-      digital: ['criativo']
-    };
-    answers.forEach((answer) => {
-      const profiles = mapping[answer];
-      if (profiles && profiles.length) {
-        profiles.forEach((profile) => score[profile]++);
-      }
-    });
-    const sorted = Object.entries(score).sort((a, b) => b[1] - a[1]);
-    return sorted[0][0];
-  };
-
-  const renderResult = (profile) => {
-    const details = {
-      visionario: {
-        title: 'Empreendedor Visionário',
-        message: 'Você aposta na inovação, identifica oportunidades e lidera com ousadia. Busque mentores que ampliem sua visão estratégica e transformem ideias em ações concretas.'
-      },
-      criativo: {
-        title: 'Empreendedor Criativo',
-        message: 'Você traz soluções originais e valoriza a diferenciação. Aproveite workshops e formatos digitais que potencializem sua imagem e engajem seus clientes.'
-      },
-      estrategico: {
-        title: 'Empreendedor Estratégico',
-        message: 'Você planeja com foco em resultados e entende os próximos passos. Invista em consultorias e estruturação de processos para escalar com segurança.'
-      },
-      analitico: {
-        title: 'Empreendedor Analítico',
-        message: 'Você valoriza dados, controle e previsibilidade. Utilize ferramentas de gestão financeira e métricas para maximizar decisões e reduzir riscos.'
-      }
-    };
-    const current = details[profile] || details.estrategico;
-    if (resultTitle) resultTitle.textContent = current.title;
-    if (resultSummary) resultSummary.textContent = current.message;
-    if (resultCard) resultCard.classList.remove('hidden');
-    window.scrollTo({ top: quizForm.getBoundingClientRect().top + window.scrollY - 120, behavior: 'smooth' });
-  };
-
-  quizForm.querySelectorAll('.quiz-next').forEach((button, stepIndex) => {
-    button.addEventListener('click', (event) => {
-      event.preventDefault();
-      const selected = getSelectedValue(stepIndex);
-      if (!selected) {
-        showToast('error', 'Quiz', 'Selecione uma opção antes de avançar.');
-        return;
-      }
-      if (stepIndex < totalSteps - 1) {
-        currentStep = stepIndex + 1;
-        showStep(currentStep);
-      } else {
-        const answers = steps.map((_, idx) => getSelectedValue(idx));
-        if (answers.some((answer) => !answer)) {
-          showToast('error', 'Quiz', 'Responda todas as perguntas para ver seu perfil.');
-          return;
+        const nodes = drawerMessages.querySelectorAll('div');
+        if (nodes && nodes.length) {
+          const last = nodes[nodes.length - 1];
+          if (last && (last.textContent === 'Pensando...' || last.innerText === 'Pensando...')) last.remove();
         }
-        const profile = determineProfile(answers);
-        renderResult(profile);
+        appendDrawerMessage('Erro ao obter resposta da IA.', 'assistant');
       }
     });
-  });
-
-  if (restartButton) {
-    restartButton.addEventListener('click', () => {
-      steps.forEach((step, idx) => {
-        step.classList.toggle('hidden', idx !== 0);
-        step.classList.toggle('active', idx === 0);
-      });
-      steps.forEach((step) => step.querySelectorAll('input[type="radio"]').forEach((input) => { input.checked = false; }));
-      if (resultCard) resultCard.classList.add('hidden');
-      currentStep = 0;
-      updateProgress();
-    });
   }
-
-  showStep(currentStep);
 }
 
+// Inicializa tudo ao carregar o DOM
 document.addEventListener('DOMContentLoaded', initScript);
