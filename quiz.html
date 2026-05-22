@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="pt-BR" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Impulsa+ Quiz | Descubra seu perfil empreendedor</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=DM+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+ </head>
+ <body class="h-full bg-gradient-to-b from-[#f8fbff] via-[#eef2ff] to-[#f8f7fc]">
+  <div id="app-wrapper" class="w-full h-full overflow-x-hidden">
+   <!-- =========================
+        NAVBAR
+   ========================= -->
+   <nav id="navbar" class="fixed top-0 left-0 w-full z-50 nav-scroll">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+     <div class="flex items-center justify-between h-16 sm:h-20">
+      <div class="flex items-center gap-3">
+       <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background: linear-gradient(135deg, #4f46e5, #6366f1);">
+        <span style="font-weight:800; color:#fff; font-size:16px;">+</span>
+       </div><span class="brand-title text-lg sm:text-xl font-bold" style="font-family: 'Plus Jakarta Sans', sans-serif; color: #f8fafc;">Impulsa<span class="brand-plus" style="color: #a78bfa;">+</span></span>
+      </div>
+      <div class="hidden md:flex items-center gap-6">
+       <a href="/#servicos" class="nav-link text-sm font-medium hover:opacity-70 transition-opacity" style="color: #e2e8f0;">Serviços</a>
+       <a href="/#apoio" class="nav-link text-sm font-medium hover:opacity-70 transition-opacity" style="color: #e2e8f0;">Apoio</a>
+       <a href="/#projetos" class="nav-link text-sm font-medium hover:opacity-70 transition-opacity" style="color: #e2e8f0;">Projetos</a>
+       <a href="/#tecnologia" class="nav-link text-sm font-medium hover:opacity-70 transition-opacity" style="color: #e2e8f0;">Tecnologia</a>
+       <a href="/quiz.html" class="quiz-nav-btn">Fazer Quiz</a>
+      </div>
+      <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg" style="color: #e2e8f0;" onclick="toggleMobile()"> <i data-lucide="menu" style="width:24px;height:24px;"></i> </button>
+     </div>
+    </div>
+    <div id="mobile-menu" class="hidden md:hidden border-t px-4 pb-4 mobile-menu">
+     <div class="flex flex-col gap-3 pt-3"><a href="/#servicos" class="text-sm font-medium py-2" style="color: #e2e8f0;">Serviços</a> <a href="/#apoio" class="text-sm font-medium py-2" style="color: #e2e8f0;">Apoio</a> <a href="/#projetos" class="text-sm font-medium py-2" style="color: #e2e8f0;">Projetos</a> <a href="/#tecnologia" class="text-sm font-medium py-2" style="color: #e2e8f0;">Tecnologia</a> <a href="/quiz.html" class="text-sm font-medium py-2 quiz-nav-btn" style="color: #fff;">Fazer Quiz</a>
+     </div>
+    </div>
+   </nav>
+   <!-- =========================
+        HERO SECTION
+   ========================= -->
+   <header class="hero-pattern relative overflow-hidden" style="background: linear-gradient(135deg, #0d1228 0%, #271f5a 100%); padding-top: 100px; padding-bottom: 80px;">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-16">
+     <div class="grid lg:grid-cols-[1.1fr_0.9fr] gap-12 items-center">
+      <div>
+       <span class="inline-block px-4 py-2 rounded-full text-xs font-bold tracking-wider uppercase mb-4" style="background: rgba(255,255,255,0.08); color: #aab7ff;">Quiz Interativo</span>
+       <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight text-white" style="font-family: 'Plus Jakarta Sans', sans-serif;">Descubra seu <span style="color:#a78bfa;">perfil empreendedor</span> em minutos</h1>
+       <p class="mt-5 max-w-2xl text-base sm:text-lg leading-relaxed" style="color: rgba(255,255,255,0.74);">Responda perguntas rápidas e receba um perfil personalizado com orientações práticas para o seu negócio.</p>
+       <div class="mt-8 flex flex-wrap gap-4">
+        <a href="#quiz-start" class="quiz-section-btn">Começar agora</a>
+       </div>
+      </div>
+      <div class="quiz-card p-8 sm:p-10">
+       <div class="text-sm uppercase tracking-[0.25em] text-indigo-100 mb-3">Perfil Empreendedor</div>
+       <h2 class="text-2xl font-bold text-white mb-4">Prepare-se para um diagnóstico estratégico</h2>
+       <div class="text-sm leading-relaxed" style="color: rgba(255,255,255,0.72);">O quiz foi pensado para empreendedores que querem entender melhor seu estilo de ação e receber recomendações que geram resultados.</div>
+      </div>
+     </div>
+    </div>
+   </header>
+   <main class="max-w-7xl mx-auto px-4 sm:px-6 pb-20">
+    <!-- =========================
+         QUIZ SECTION
+    ========================= -->
+    <section id="quiz-start" class="py-14">
+     <div class="quiz-card p-8 sm:p-10">
+      <div class="quiz-progress">
+       <div class="flex items-center justify-between gap-4 mb-4">
+        <span class="text-xs uppercase tracking-[0.2em] text-slate-500">Progresso do Quiz</span>
+        <span id="quiz-progress-text" class="text-sm font-semibold text-slate-700">Pergunta 1 de 5</span>
+       </div>
+       <div class="quiz-progress-bar"><div id="quiz-progress-fill" class="quiz-progress-bar-fill"></div></div>
+      </div>
+      <form id="quiz-form" class="mt-10 space-y-10">
+       <div class="quiz-step active" data-step="1">
+        <div class="mb-6">
+         <span class="text-sm uppercase tracking-[0.18em] text-indigo-500">Pergunta 1</span>
+         <h2 class="mt-4 text-2xl font-bold text-slate-900">Em qual fase está seu negócio hoje?</h2>
+        </div>
+        <div class="grid gap-4 sm:grid-cols-2">
+         <label class="cursor-pointer rounded-3xl border p-5 transition hover:border-indigo-300 hover:shadow-lg">
+          <input type="radio" name="q1" value="ideia" class="sr-only">
+          <div class="font-semibold mb-2">Ideia inicial</div>
+          <div class="text-sm text-slate-600">Ainda em construção da proposta e validação.</div>
+         </label>
+         <label class="cursor-pointer rounded-3xl border p-5 transition hover:border-indigo-300 hover:shadow-lg">
+          <input type="radio" name="q1" value="validacao" class="sr-only">
+          <div class="font-semibold mb-2">Validação</div>
+          <div class="text-sm text-slate-600">Testando com clientes e ajustando oferta.</div>
+         </label>
+         <label class="cursor-pointer rounded-3xl border p-5 transition hover:border-indigo-300 hover:shadow-lg">
+          <input type="radio" name="q1" value="crescimento" class="sr-only">
+          <div class="font-semibold mb-2">Crescimento</div>
+          <div class="text-sm text-slate-600">Buscando ampliar resultados e alcance.</div>
+         </label>
+         <label class="cursor-pointer rounded-3xl border p-5 transition hover:border-indigo-300 hover:shadow-lg">
+          <input type="radio" name="q1" value="escala" class="sr-only">
+          <div class="font-semibold mb-2">Escala</div>
+          <div class="text-sm text-slate-600">Já consolidado e preparado para expandir.</div>
+         </label>
+        </div>
+        <button type="button" class="quiz-next quiz-section-btn w-full justify-center">Próxima pergunta</button>
+       </div>
+       <div class="quiz-step hidden" data-step="2">
+        <div class="mb-6">
+         <span class="text-sm uppercase tracking-[0.18em] text-indigo-500">Pergunta 2</span>
+         <h2 class="mt-4 text-2xl font-bold text-slate-900">Onde você quer acelerar com mais força?</h2>
+        </div>
+        <div class="grid gap-4 sm:grid-cols-2">
+         <label class="cursor-pointer rounded-3xl border p-5 transition hover:border-indigo-300 hover:shadow-lg">
+          <input type="radio" name="q2" value="vendas" class="sr-only">
+          <div class="font-semibold mb-2">Vendas</div>
+          <div class="text-sm text-slate-600">Aumentar conversões e clientes recorrentes.</div>
+         </label>
+         <label class="cursor-pointer rounded-3xl border p-5 transition hover:border-indigo-300 hover:shadow-lg">
+          <input type="radio" name="q2" value="financeiro" class="sr-only">
+          <div class="font-semibold mb-2">Financeiro</div>
+          <div class="text-sm text-slate-600">Controlar fluxo de caixa e margem.</div>
+         </label>
+         <label class="cursor-pointer rounded-3xl border p-5 transition hover:border-indigo-300 hover:shadow-lg">
+          <input type="radio" name="q2" value="marketing" class="sr-only">
+          <div class="font-semibold mb-2">Marketing</div>
+          <div class="text-sm text-slate-600">Melhorar presença digital e comunicação.</div>
+         </label>
+         <label class="cursor-pointer rounded-3xl border p-5 transition hover:border-indigo-300 hover:shadow-lg">
+          <input type="radio" name="q2" value="inovacao" class="sr-only">
+          <div class="font-semibold mb-2">Inovação</div>
+          <div class="text-sm text-slate-600">Criar novas soluções e diferenciais.</div>
+         </label>
+        </div>
+        <button type="button" class="quiz-next quiz-section-btn w-full justify-center">Próxima pergunta</button>
+       </div>
+       <div class="quiz-step hidden" data-step="3">
+        <div class="mb-6">
+         <span class="text-sm uppercase tracking-[0.18em] text-indigo-500">Pergunta 3</span>
+         <h2 class="mt-4 text-2xl font-bold text-slate-900">Qual palavra descreve melhor seu estilo?</h2>
+        </div>
+        <div class="grid gap-4 sm:grid-cols-2">
+         <label class="cursor-pointer rounded-3xl border p-5 transition hover:border-indigo-300 hover:shadow-lg">
+          <input type="radio" name="q3" value="criativo" class="sr-only">
+          <div class="font-semibold mb-2">Criativo</div>
+          <div class="text-sm text-slate-600">Gosta de novas ideias e abordagens fora da caixa.</div>
+         </label>
+         <label class="cursor-pointer rounded-3xl border p-5 transition hover:border-indigo-300 hover:shadow-lg">
+          <input type="radio" name="q3" value="estavel" class="sr-only">
+          <div class="font-semibold mb-2">Estável</div>
+          <div class="text-sm text-slate-600">Prefere processos seguros e decisões consistentes.</div>
+         </label>
+         <label class="cursor-pointer rounded-3xl border p-5 transition hover:border-indigo-300 hover:shadow-lg">
+          <input type="radio" name="q3" value="estrategico" class="sr-only">
+          <div class="font-semibold mb-2">Estratégico</div>
+          <div class="text-sm text-slate-600">Planeja ações com foco em resultados mensuráveis.</div>
+         </label>
+         <label class="cursor-pointer rounded-3xl border p-5 transition hover:border-indigo-300 hover:shadow-lg">
+          <input type="radio" name="q3" value="analitico" class="sr-only">
+          <div class="font-semibold mb-2">Analítico</div>
+          <div class="text-sm text-slate-600">Baseia decisões em dados e indicadores.</div>
+         </label>
+        </div>
+        <button type="button" class="quiz-next quiz-section-btn w-full justify-center">Próxima pergunta</button>
+       </div>
+       <div class="quiz-step hidden" data-step="4">
+        <div class="mb-6">
+         <span class="text-sm uppercase tracking-[0.18em] text-indigo-500">Pergunta 4</span>
+         <h2 class="mt-4 text-2xl font-bold text-slate-900">Você toma decisões com base em:</h2>
+        </div>
+        <div class="grid gap-4 sm:grid-cols-2">
+         <label class="cursor-pointer rounded-3xl border p-5 transition hover:border-indigo-300 hover:shadow-lg">
+          <input type="radio" name="q4" value="intuicao" class="sr-only">
+          <div class="font-semibold mb-2">Intuição</div>
+          <div class="text-sm text-slate-600">Sente o momento certo para agir.</div>
+         </label>
+         <label class="cursor-pointer rounded-3xl border p-5 transition hover:border-indigo-300 hover:shadow-lg">
+          <input type="radio" name="q4" value="dados" class="sr-only">
+          <div class="font-semibold mb-2">Dados</div>
+          <div class="text-sm text-slate-600">Analisa métricas e desempenho antes de agir.</div>
+         </label>
+         <label class="cursor-pointer rounded-3xl border p-5 transition hover:border-indigo-300 hover:shadow-lg">
+          <input type="radio" name="q4" value="planejamento" class="sr-only">
+          <div class="font-semibold mb-2">Planejamento</div>
+          <div class="text-sm text-slate-600">Estrutura projetos com clareza e etapas definidas.</div>
+         </label>
+         <label class="cursor-pointer rounded-3xl border p-5 transition hover:border-indigo-300 hover:shadow-lg">
+          <input type="radio" name="q4" value="colaboracao" class="sr-only">
+          <div class="font-semibold mb-2">Colaboração</div>
+          <div class="text-sm text-slate-600">Busca apoio e sinergia com parceiros.</div>
+         </label>
+        </div>
+        <button type="button" class="quiz-next quiz-section-btn w-full justify-center">Próxima pergunta</button>
+       </div>
+       <div class="quiz-step hidden" data-step="5">
+        <div class="mb-6">
+         <span class="text-sm uppercase tracking-[0.18em] text-indigo-500">Pergunta 5</span>
+         <h2 class="mt-4 text-2xl font-bold text-slate-900">Qual apoio faz mais sentido para você hoje?</h2>
+        </div>
+        <div class="grid gap-4 sm:grid-cols-2">
+         <label class="cursor-pointer rounded-3xl border p-5 transition hover:border-indigo-300 hover:shadow-lg">
+          <input type="radio" name="q5" value="mentorias" class="sr-only">
+          <div class="font-semibold mb-2">Mentorias</div>
+          <div class="text-sm text-slate-600">Apoio direto e estratégico com especialistas.</div>
+         </label>
+         <label class="cursor-pointer rounded-3xl border p-5 transition hover:border-indigo-300 hover:shadow-lg">
+          <input type="radio" name="q5" value="workshops" class="sr-only">
+          <div class="font-semibold mb-2">Workshops</div>
+          <div class="text-sm text-slate-600">Aprendizado prático em grupo e execução rápida.</div>
+         </label>
+         <label class="cursor-pointer rounded-3xl border p-5 transition hover:border-indigo-300 hover:shadow-lg">
+          <input type="radio" name="q5" value="consultorias" class="sr-only">
+          <div class="font-semibold mb-2">Consultorias</div>
+          <div class="text-sm text-slate-600">Diagnóstico e plano personalizado.</div>
+         </label>
+         <label class="cursor-pointer rounded-3xl border p-5 transition hover:border-indigo-300 hover:shadow-lg">
+          <input type="radio" name="q5" value="digital" class="sr-only">
+          <div class="font-semibold mb-2">Digital</div>
+          <div class="text-sm text-slate-600">Ferramentas online e automações.</div>
+         </label>
+        </div>
+        <button type="button" class="quiz-next quiz-section-btn w-full justify-center">Ver resultado</button>
+       </div>
+       <div id="quiz-result-card" class="quiz-result hidden">
+        <div class="text-sm uppercase tracking-[0.2em] text-indigo-500 mb-3">Resultado</div>
+        <h3 id="quiz-result-title" class="text-3xl font-bold mb-3">Seu perfil é...</h3>
+        <p id="quiz-result-summary" class="text-base leading-relaxed text-slate-700 mb-6"></p>
+        <button id="quiz-restart" type="button" class="quiz-section-btn w-full justify-center">Refazer Quiz</button>
+       </div>
+      </form>
+     </div>
+    </section>
+   </main>
+  </div>
+  <script src="script.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', function(){ if (typeof initQuizPage === 'function') try{ initQuizPage(); } catch(e){ console.warn('initQuizPage error', e); } });</script>
+ </body>
+</html>
