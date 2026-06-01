@@ -89,7 +89,7 @@
       <div class="quiz-card p-8 sm:p-10">
        <div class="text-sm uppercase tracking-[0.25em] text-indigo-100 mb-3">Perfil Empreendedor</div>
        <h2 class="text-2xl font-bold text-white mb-4">Prepare-se para um diagnóstico estratégico</h2>
-       <div class="text-sm leading-relaxed" style="color: rgba(255,255,255,0.72);">O quiz foi pensado para empreendedores que querem entender melhor seu estilo de ação e receber recomendações que geram resultados.</div>
+       <div class="text-sm leading-relaxed" style="color: rgba(255,255,255,0.72);">O quiz foi pensado para empreendedores que querem entender melhor seu style de ação e receber recomendações que geram resultados.</div>
       </div>
      </div>
     </div>
@@ -108,6 +108,7 @@
       
       <form id="quiz-form" class="mt-10 space-y-6" onsubmit="event.preventDefault();">
         
+        <!-- Pergunta 1 -->
         <div class="quiz-step" data-step="1">
          <div class="mb-6">
           <span class="text-sm uppercase tracking-[0.18em] text-indigo-500 font-bold">Pergunta 1</span>
@@ -138,6 +139,7 @@
          <button type="button" class="quiz-next quiz-section-btn w-full justify-center">Próxima pergunta</button>
         </div>
 
+        <!-- Pergunta 2 -->
         <div class="quiz-step hidden" data-step="2">
          <div class="mb-6">
           <span class="text-sm uppercase tracking-[0.18em] text-indigo-500 font-bold">Pergunta 2</span>
@@ -162,12 +164,13 @@
           <label class="cursor-pointer rounded-3xl border border-slate-200 p-5 transition block hover:border-indigo-300 hover:shadow-md bg-white">
            <input type="radio" name="q2" value="inovacao" class="sr-only">
            <div class="font-semibold mb-2 text-slate-800">Inovação</div>
-           <div class="text-sm text-slate-600">Criar novas soluções e differentiation.</div>
+           <div class="text-sm text-slate-600">Criar novas soluções e diferenciação.</div>
           </label>
          </div>
          <button type="button" class="quiz-next quiz-section-btn w-full justify-center">Próxima pergunta</button>
         </div>
 
+        <!-- Pergunta 3 -->
         <div class="quiz-step hidden" data-step="3">
          <div class="mb-6">
           <span class="text-sm uppercase tracking-[0.18em] text-indigo-500 font-bold">Pergunta 3</span>
@@ -198,6 +201,7 @@
          <button type="button" class="quiz-next quiz-section-btn w-full justify-center">Próxima pergunta</button>
         </div>
 
+        <!-- Pergunta 4 -->
         <div class="quiz-step hidden" data-step="4">
          <div class="mb-6">
           <span class="text-sm uppercase tracking-[0.18em] text-indigo-500 font-bold">Pergunta 4</span>
@@ -228,6 +232,7 @@
          <button type="button" class="quiz-next quiz-section-btn w-full justify-center">Próxima pergunta</button>
         </div>
 
+        <!-- Pergunta 5 -->
         <div class="quiz-step hidden" data-step="5">
          <div class="mb-6">
           <span class="text-sm uppercase tracking-[0.18em] text-indigo-500 font-bold">Pergunta 5</span>
@@ -258,6 +263,7 @@
          <button type="button" class="quiz-next quiz-section-btn w-full justify-center">Ver resultado</button>
         </div>
 
+        <!-- Card de Resultado -->
         <div id="quiz-result-card" class="hidden p-6 text-center">
          <div class="text-6xl mb-4">🎉</div>
          <span class="text-xs uppercase tracking-[0.2em] text-indigo-600 font-bold">Diagnóstico Concluído</span>
@@ -282,16 +288,22 @@
       const resultSummary = document.getElementById('quiz-result-summary');
       const form = document.getElementById('quiz-form');
       const quizSection = document.getElementById('quiz-container');
+      const restartBtn = document.getElementById('quiz-restart');
       
       let currentStep = 0;
       const totalSteps = steps.length;
 
-      // Função para rolar a tela suavemente até o início das perguntas
       function focarNoQuiz() {
         quizSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
 
-      // Adiciona o evento de clique nos cards
+      function atualizarProgresso() {
+        const percent = ((currentStep + 1) / totalSteps) * 100;
+        progressText.innerText = `Pergunta ${currentStep + 1} de ${totalSteps}`;
+        progressFill.style.width = `${percent}%`;
+      }
+
+      // Adiciona os eventos de seleção visual para os labels/cards de opção
       steps.forEach((step, stepIdx) => {
         const labels = step.querySelectorAll('label');
 
@@ -312,7 +324,7 @@
           });
         });
 
-        // Configura o botão de avançar de cada pergunta
+        // Configura a navegação do botão "Avançar"
         const nextBtn = step.querySelector('.quiz-next');
         if (nextBtn) {
           nextBtn.addEventListener('click', function() {
@@ -327,10 +339,9 @@
               currentStep++;
               steps[currentStep].classList.remove('hidden');
               atualizarProgresso();
-              // Força o navegador a focar na nova pergunta para não se perder no espaço branco!
               setTimeout(focarNoQuiz, 50);
             } else {
-              // Tela final de resultado
+              // Tela final do diagnóstico
               steps[currentStep].classList.add('hidden');
               
               const q1 = form.querySelector('input[name="q1"]:checked')?.value;
@@ -347,6 +358,10 @@
                 descricao = "Para você, dados valem ouro. Suas decisões são seguras e você prioriza manter a casa organizada, principalmente o fluxo de caixa. O suporte ideal para você envolve consultorias de otimização de processos e ferramentas avançadas de automação.";
               }
 
+              // Salva a conquista no LocalStorage vinculado ao usuário ativo (ou fallback padrão)
+              const usuarioAtivo = localStorage.getItem('impulsa_current_user') || 'default_user';
+              localStorage.setItem(`quiz_done_${usuarioAtivo}`, 'true');
+
               resultTitle.innerText = `Seu perfil é: ${perfil}`;
               resultSummary.innerText = descricao;
               resultCard.classList.remove('hidden');
@@ -359,6 +374,36 @@
         }
       });
 
-      function atualizarProgresso() {
-        progressText.innerText = `Pergunta ${currentStep + 1} de ${totalSteps}`;
-        progress
+      // Lógica do botão de Reiniciar Quiz
+      if (restartBtn) {
+        restartBtn.addEventListener('click', function() {
+          form.reset();
+          steps.forEach(s => s.classList.add('hidden'));
+          resultCard.classList.add('hidden');
+          
+          // Limpa estilos customizados das labels
+          document.querySelectorAll('#quiz-form label').forEach(l => {
+            l.style.borderColor = '#e2e8f0';
+            l.style.backgroundColor = '#ffffff';
+            l.style.boxShadow = 'none';
+          });
+
+          currentStep = 0;
+          steps[currentStep].classList.remove('hidden');
+          atualizarProgresso();
+          setTimeout(focarNoQuiz, 50);
+        });
+      }
+
+      // Inicializa o progresso da primeira etapa
+      atualizarProgresso();
+    });
+
+    // Fallback básico caso as funções globais do menu mobile não estejam carregadas
+    function toggleMobile() {
+      const menu = document.getElementById("mobile-menu");
+      if (menu) menu.classList.toggle("hidden");
+    }
+  </script>
+ </body>
+</html>
