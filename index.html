@@ -114,6 +114,121 @@
     <svg class="w-full" viewbox="0 0 1440 80" preserveaspectratio="none" style="display:block; margin-bottom:-1px;"><path d="M0,40 C360,80 720,0 1080,40 C1260,60 1380,50 1440,40 L1440,80 L0,80 Z" fill="#ffffff" />
     </svg>
    </header>
+   <!-- =========================================================
+     NOVA SEÇÃO: PAINEL DINÂMICO IMPULSA+ (AS 5 IDEIAS DO TCC)
+     ========================================================= -->
+<section id="painel-impulsa" class="hidden py-12 bg-slate-900 text-white border-b border-slate-800">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <!-- Boas-vindas e Identificação da Fase (Ideia 1) -->
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 pb-6 border-b border-slate-800 gap-4">
+      <div>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-white" style="font-family:'Plus Jakarta Sans',sans-serif;">
+          Olá, <span id="painel-user-nome" class="text-indigo-400">Empreendedor</span>!
+        </h2>
+        <p class="text-slate-400 text-sm mt-1">Bem-vindo ao seu ecossistema de inovação em tempo real.</p>
+      </div>
+      <div class="flex items-center gap-3 bg-slate-800 px-4 py-2 rounded-2xl border border-slate-700">
+        <span class="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></span>
+        <span class="text-xs font-semibold uppercase tracking-wider text-slate-300">Fase Atual:</span>
+        <span id="painel-user-fase" class="text-sm font-bold text-emerald-400">Identificando...</span>
+      </div>
+    </div>
+
+    <!-- Grid Principal: Gráficos (Ideia 5) e Trilhas (Ideia 4) -->
+    <div class="grid lg:grid-cols-3 gap-8 mb-10">
+      
+      <!-- CARD DO PAINEL DINÂMICO / METRICAS (Ideia 5) -->
+      <div class="lg:col-span-2 bg-slate-950 p-6 rounded-3xl border border-white/5 shadow-xl">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="font-bold text-lg text-slate-200 flex items-center gap-2">
+            <i data-lucide="bar-chart-3" class="text-indigo-400 w-5 h-5"></i> Desempenho da Empresa (Tempo Real)
+          </h3>
+          <span class="text-xs bg-indigo-500/10 text-indigo-400 px-2 py-1 rounded-md font-medium">Métricas Ativas</span>
+        </div>
+        <!-- Canvas onde o Chart.js vai renderizar o gráfico -->
+        <div class="relative w-full h-64 flex items-center justify-center bg-slate-900/50 rounded-2xl p-2">
+          <canvas id="graficoDesempenho"></canvas>
+        </div>
+      </div>
+
+      <!-- CARD DA TRILHA DE APRENDIZADO PERSONALIZADA (Ideia 4) -->
+      <div class="bg-slate-950 p-6 rounded-3xl border border-white/5 shadow-xl">
+        <h3 class="font-bold text-lg text-slate-200 mb-4 flex items-center gap-2">
+          <i data-lucide="git-commit" class="text-purple-400 w-5 h-5"></i> Sua Trilha Recomendada
+        </h3>
+        <div id="container-trilha" class="space-y-3">
+          <!-- Inserido dinamicamente via JS com base na fase -->
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Grid Secundário: Conquistas (Ideia 3) e Comunidade (Ideia 2) -->
+    <div class="grid lg:grid-cols-3 gap-8">
+      
+      <!-- SEÇÃO DE CONQUISTAS E SELOS (Ideia 3) -->
+      <div class="bg-slate-950 p-6 rounded-3xl border border-white/5 shadow-xl flex flex-col justify-between">
+        <div>
+          <h3 class="font-bold text-lg text-slate-200 mb-4 flex items-center gap-2">
+            <i data-lucide="award" class="text-amber-400 w-5 h-5"></i> Seus Selos e Conquistas
+          </h3>
+          <div class="grid grid-cols-2 gap-4 text-center">
+            <div id="selo-cadastro" class="p-3 bg-slate-900 rounded-2xl border border-slate-800 flex flex-col items-center justify-center opacity-40 transition-opacity">
+              <span class="text-2xl mb-1">🚀</span>
+              <span class="text-xs font-bold text-slate-300">Impulsa Start</span>
+            </div>
+            <div id="selo-quiz" class="p-3 bg-slate-900 rounded-2xl border border-slate-800 flex flex-col items-center justify-center opacity-40 transition-opacity">
+              <span class="text-2xl mb-1">🎯</span>
+              <span class="text-xs font-bold text-slate-300">Diagnóstico OK</span>
+            </div>
+            <div id="selo-comunidade" class="p-3 bg-slate-900 rounded-2xl border border-slate-800 flex flex-col items-center justify-center opacity-40 transition-opacity">
+              <span class="text-2xl mb-1">💬</span>
+              <span class="text-xs font-bold text-slate-300">Networking</span>
+            </div>
+            <div id="selo-meta" class="p-3 bg-slate-900 rounded-2xl border border-slate-800 flex flex-col items-center justify-center opacity-40 transition-opacity">
+              <span class="text-2xl mb-1">🏆</span>
+              <span class="text-xs font-bold text-slate-300">Meta Batida</span>
+            </div>
+          </div>
+        </div>
+        <p class="text-slate-500 text-xs mt-4 text-center">Conclua atividades para desbloquear novos selos.</p>
+      </div>
+
+      <!-- SEÇÃO DA COMUNIDADE / NETWORKING (Ideia 2) -->
+      <div class="lg:col-span-2 bg-slate-950 p-6 rounded-3xl border border-white/5 shadow-xl">
+        <h3 class="font-bold text-lg text-slate-200 mb-4 flex items-center gap-2">
+          <i data-lucide="users" class="text-emerald-400 w-5 h-5"></i> Comunidade & Networking Impulsa+
+        </h3>
+        
+        <!-- Formulário para Criar Postagem -->
+        <div class="flex gap-3 mb-4">
+          <input id="comunidade-input" type="text" placeholder="Compartilhe uma ideia, insight ou meta batida com a rede..." class="w-full bg-slate-900 border border-slate-800 rounded-2xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-indigo-500">
+          <button id="comunidade-postar-btn" class="bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-sm px-5 py-2.5 rounded-2xl transition-all flex items-center gap-1">
+            Postar <i data-lucide="send" class="w-4 h-4"></i>
+          </button>
+        </div>
+
+        <!-- Feed de Mensagens -->
+        <div id="comunidade-feed" class="space-y-3 max-h-48 overflow-y-auto pr-2 custom-scrollbar">
+          <!-- Post simulado estático fixo para gerar volume inicial -->
+          <div class="bg-slate-900/60 p-3 rounded-2xl border border-slate-800 text-xs">
+            <div class="flex justify-between font-bold text-indigo-400 mb-1">
+              <span>Amanda Silva @VerdeMarket</span>
+              <span class="text-slate-500 font-normal">Há 10 min</span>
+            </div>
+            <p class="text-slate-300">Acabei de fechar uma parceria de distribuição incrível usando a rede do Impulsa+! Vamos que vamos! 🚀</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- IMPORTAÇÃO DO CHART.JS PARA O GRÁFICO DINÂMICO -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- =========================
          SERVICES SECTION
     ========================= -->
