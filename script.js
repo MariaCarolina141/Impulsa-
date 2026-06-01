@@ -240,6 +240,34 @@ function applyConfig(config) {
   if (apoio) apoio.style.backgroundColor = getConfigValue('surface_color');
 }
 
+/* ==========================================
+   GAMIFICATION SYSTEM (QUIZ & BADGES)
+========================================== */
+function atualizarSelosConquistas() {
+  const currentUser = localStorage.getItem('impulsa_current_user');
+  if (!currentUser) return;
+
+  // Verifica se o usuário logado concluiu o quiz de diagnóstico
+  const quizConcluido = localStorage.getItem(`quiz_done_${currentUser}`);
+  const seloDiagnostico = document.getElementById('badge-diagnostico');
+
+  if (seloDiagnostico) {
+    if (quizConcluido === 'true') {
+      // Remove classes de opacidade/escala de cinza que indicam bloqueio
+      seloDiagnostico.classList.remove('opacity-40', 'grayscale', 'locked');
+      seloDiagnostico.classList.add('opacity-100', 'scale-105', 'active');
+      seloDiagnostico.title = "Diagnóstico Realizado! Parabéns!";
+    } else {
+      // Mantém ou retorna o estado bloqueado se não feito
+      seloDiagnostico.classList.add('opacity-40', 'grayscale', 'locked');
+      seloDiagnostico.classList.remove('opacity-100', 'scale-105', 'active');
+    }
+  }
+}
+
+/* =========================
+   INITIALIZATION
+========================= */
 function initScript() {
   if (window.lucide && typeof lucide.createIcons === 'function') {
     lucide.createIcons();
@@ -519,6 +547,7 @@ function initScript() {
         showToast('success', 'Conta criada', 'Sua conta foi criada com sucesso.');
         signupForm.reset();
         if (signupPanel) signupPanel.classList.add('hidden');
+        atualizarSelosConquistas(); // Atualiza os selos pós cadastro
       } catch (err) {
         console.error('Erro ao criar conta:', err);
         showToast('error', 'Erro', 'Não foi possível criar sua conta. Tente novamente.');
@@ -527,7 +556,7 @@ function initScript() {
   }
 
   /* ==========================================
-     THEME TOGGLE SYSTEM (INJECTED ON HTML & BODY)
+      THEME TOGGLE SYSTEM (INJECTED ON HTML & BODY)
      ========================================== */
   function applyStoredTheme() {
     try {
@@ -577,6 +606,7 @@ function initScript() {
       if (logoutBtn) logoutBtn.classList.add('hidden');
       if (userBadge) { userBadge.style.display='none'; userBadge.textContent = ''; }
     }
+    atualizarSelosConquistas(); // Roda sempre que a UI de auth atualiza
   }
 
   if (loginBtn) loginBtn.addEventListener('click', (e) => { e.preventDefault(); if (loginModal) loginModal.classList.remove('hidden'); if (loginEmail) loginEmail.focus(); });
@@ -766,11 +796,11 @@ function initScript() {
           const last = nodes[nodes.length - 1];
           if (last && (last.textContent === 'Pensando...' || last.innerText === 'Pensando...')) last.remove();
         }
-        appendDrawerMessage('Erro ao obter resposta da IA.', 'assistant');
+        appendDrawerMessage('Não foi possível obter resposta agora.', 'assistant');
       }
     });
   }
 }
 
-// Inicializa tudo ao carregar o DOM
+// Inicializa o script ao carregar o documento
 document.addEventListener('DOMContentLoaded', initScript);
