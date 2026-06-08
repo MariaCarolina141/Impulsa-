@@ -119,7 +119,12 @@ function enviarFormulario(event) {
     console.error('Erro ao salvar cadastro:', e);
   }
 
-  showToast('success', 'Cadastro realizado', `Obrigado, ${nome}. Seu cadastro foi recebido.`);
+  showToast('success', 'Cadastro realizado', `Obrigado, ${nome}. Redirecionando para o painel...`);
+  
+  // Redireciona o formulário alternativo para o novo painel
+  setTimeout(() => {
+    window.location.href = 'dashboard.html';
+  }, 1000);
 }
 
 function inscrever(curso) {
@@ -241,28 +246,10 @@ function applyConfig(config) {
 }
 
 /* ==========================================
-   GAMIFICATION SYSTEM (QUIZ & BADGES)
+   GAMIFICATION SYSTEM (REMOVIDO / ATUALIZADO)
 ========================================== */
 function atualizarSelosConquistas() {
-  const currentUser = localStorage.getItem('impulsa_current_user');
-  if (!currentUser) return;
-
-  // Verifica se o usuário logado concluiu o quiz de diagnóstico
-  const quizConcluido = localStorage.getItem(`quiz_done_${currentUser}`);
-  const seloDiagnostico = document.getElementById('badge-diagnostico');
-
-  if (seloDiagnostico) {
-    if (quizConcluido === 'true') {
-      // Remove classes de opacidade/escala de cinza que indicam bloqueio
-      seloDiagnostico.classList.remove('opacity-40', 'grayscale', 'locked');
-      seloDiagnostico.classList.add('opacity-100', 'scale-105', 'active');
-      seloDiagnostico.title = "Diagnóstico Realizado! Parabéns!";
-    } else {
-      // Mantém ou retorna o estado bloqueado se não feito
-      seloDiagnostico.classList.add('opacity-40', 'grayscale', 'locked');
-      seloDiagnostico.classList.remove('opacity-100', 'scale-105', 'active');
-    }
-  }
+  // Mantido vazio para evitar erros de chamada em outras partes do código antigo
 }
 
 /* =========================
@@ -544,10 +531,15 @@ function initScript() {
         users.push({ name: name.trim(), email: email.trim(), passwordHash: pwdHash, date: new Date().toISOString() });
         localStorage.setItem('impulsa_users', JSON.stringify(users));
         try { localStorage.setItem('impulsa_current_user', email.trim()); } catch (e) {}
-        showToast('success', 'Conta criada', 'Sua conta foi criada com sucesso.');
+        showToast('success', 'Conta criada', 'Sua conta foi criada com sucesso! Redirecionando...');
         signupForm.reset();
         if (signupPanel) signupPanel.classList.add('hidden');
-        atualizarSelosConquistas(); // Atualiza os selos pós cadastro
+        
+        // REDIRECIONAMENTO DIRETO DO CADASTRO PARA O DASHBOARD
+        setTimeout(() => {
+          window.location.href = 'dashboard.html';
+        }, 1000);
+
       } catch (err) {
         console.error('Erro ao criar conta:', err);
         showToast('error', 'Erro', 'Não foi possível criar sua conta. Tente novamente.');
@@ -606,7 +598,6 @@ function initScript() {
       if (logoutBtn) logoutBtn.classList.add('hidden');
       if (userBadge) { userBadge.style.display='none'; userBadge.textContent = ''; }
     }
-    atualizarSelosConquistas(); // Roda sempre que a UI de auth atualiza
   }
 
   if (loginBtn) loginBtn.addEventListener('click', (e) => { e.preventDefault(); if (loginModal) loginModal.classList.remove('hidden'); if (loginEmail) loginEmail.focus(); });
@@ -631,7 +622,13 @@ function initScript() {
         localStorage.setItem('impulsa_current_user', email);
         if (loginModal) loginModal.classList.add('hidden');
         updateAuthUI();
-        showToast('success','Login','Entrou com sucesso.');
+        showToast('success','Login','Entrou com sucesso. Carregando painel...');
+        
+        // REDIRECIONAMENTO DIRETO DO LOGIN PARA O DASHBOARD
+        setTimeout(() => {
+          window.location.href = 'dashboard.html';
+        }, 1000);
+
       } catch (err) { console.error(err); showToast('error','Login','Erro na requisição de login.'); }
     });
   }
@@ -772,35 +769,6 @@ function initScript() {
       appendDrawerMessage(q || (mentorTag ? `Conectar com mentor ${mentorTag}` : ''), 'user');
       drawerInput.value = '';
       appendDrawerMessage('Pensando...', 'assistant');
-      try {
-        const prompt = mentorTag ? `Você é um mentor experiente. Responda sucintamente e indique próximos passos. Pergunta para ${mentorTag}: ${q}` : q;
-        const answer = await fetchAIResponse(prompt);
-        const nodes = drawerMessages.querySelectorAll('div');
-        if (nodes && nodes.length) {
-          const last = nodes[nodes.length - 1];
-          if (last && (last.textContent === 'Pensando...' || last.innerText === 'Pensando...')) last.remove();
-        }
-        if (mentorTag) {
-          try {
-            const requests = JSON.parse(localStorage.getItem('impulsa_mentor_requests') || '[]');
-            requests.push({ mentor: mentorTag, question: q, answerSnippet: (answer || '').slice(0,300), date: new Date().toISOString() });
-            localStorage.setItem('impulsa_mentor_requests', JSON.stringify(requests));
-          } catch (e) { console.warn('Falha ao salvar pedido de mentor', e); }
-          appendDrawerMessage(`<strong>🔖 Marcado para <em>${mentorTag}</em></strong><div style="margin-top:6px">${answer}</div>`, 'assistant');
-        } else {
-          appendDrawerMessage(answer, 'assistant');
-        }
-      } catch (err) {
-        const nodes = drawerMessages.querySelectorAll('div');
-        if (nodes && nodes.length) {
-          const last = nodes[nodes.length - 1];
-          if (last && (last.textContent === 'Pensando...' || last.innerText === 'Pensando...')) last.remove();
-        }
-        appendDrawerMessage('Não foi possível obter resposta agora.', 'assistant');
-      }
     });
   }
 }
-
-// Inicializa o script ao carregar o documento
-document.addEventListener('DOMContentLoaded', initScript);
