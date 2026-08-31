@@ -1,609 +1,307 @@
 <!doctype html>
-<html lang="pt-BR" class="h-full">
- <head>
+<html lang="pt-BR">
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Impulsa+ | Impulsionando o Ecossistema de Inovação</title>
+  <title>Story Education</title>
+
+  <!-- Bibliotecas externas (Tailwind, Lucide Icons, Google Fonts) -->
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
   <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
-  <script src="/_sdk/element_sdk.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=DM+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/style.css">
-  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
- </head>
- 
- <body class="h-full">
-  <div id="preloader" class="preloader">
-    <div class="preloader-card">
-      <div class="preloader-logo">Impulsa<span class="brand-plus">+</span></div>
-      <div class="preloader-text">Carregando inovação...</div>
-      <div class="preloader-dots"><span></span><span></span><span></span></div>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet">
+
+  <!-- Vínculo com o arquivo CSS externo -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-template-id="__page-root">
+  <div class="top-rule"></div>
+  <header class="header-shell sticky top-0 z-30 w-full border-b border-[#d9d4c8]">
+    <div class="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 lg:px-8">
+      <a href="#inicio" class="flex items-center gap-3" aria-label="Ir para o início"> 
+        <img data-template-id="brand-logo" class="canva-image logo-box" loading="lazy" alt="Logo"> 
+        <span data-template-id="brand-name" class="canva-text text-base font-bold tracking-tight">Story Education</span> 
+      </a>
+      <nav class="hidden items-center gap-7 md:flex" aria-label="Navegação principal">
+        <a data-template-id="nav-about" class="canva-link text-sm font-medium transition hover:text-[#ef6f3c]" href="#sobre">Sobre</a> 
+        <a data-template-id="nav-lab" class="canva-link text-sm font-medium transition hover:text-[#ef6f3c]" href="#laboratorio">Laboratório</a> 
+        <a data-template-id="nav-programs" class="canva-link text-sm font-medium transition hover:text-[#ef6f3c]" href="#trilhas">Trilhas</a> 
+        <a data-template-id="nav-contact" class="canva-link text-sm font-medium transition hover:text-[#ef6f3c]" href="#contato">Contato</a>
+      </nav>
+      <a data-template-id="header-cta" class="canva-button hidden border border-[#12211c] px-5 py-2.5 text-sm font-bold transition hover:bg-[#12211c] hover:text-white md:inline-flex" href="#contato">Fale Conosco</a> 
+      <button id="menu-button" class="inline-flex items-center justify-center p-2 text-[#12211c] md:hidden focus:outline-none focus:ring-2 focus:ring-[#ef6f3c]" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobile-menu"> 
+        <i data-lucide="menu" width="24" height="24"></i> 
+      </button>
     </div>
-  </div>
-  
-  <div id="app-wrapper" class="w-full h-full overflow-auto">
-    <!-- =========================
-         NAVBAR
-    ========================= -->
-   <nav id="navbar" class="fixed top-0 left-0 w-full z-50 nav-scroll bg-slate-900/90 backdrop-blur-md" style="border-bottom: none;">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex items-center justify-between h-16 sm:h-20">
-          
-          <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background: linear-gradient(135deg, #4f46e5, #6366f1);">
-              <span style="font-weight:800; color:#fff; font-size:16px;">+</span>
-            </div>
-            <span class="brand-title text-lg sm:text-xl font-bold" style="font-family: 'Plus Jakarta Sans', sans-serif; color: #91d7f3;">Impulsa<span class="brand-plus" style="color: #fae571;">+</span></span>
-          </div>
-          
-          <div class="hidden md:flex items-center gap-8">
-            <a href="#servicos" class="nav-link text-sm font-medium hover:opacity-70 transition-opacity" style="color: #8bd9fd;">Serviços</a> 
-            <a href="#apoio" class="nav-link text-sm font-medium hover:opacity-70 transition-opacity" style="color: #8bd9fd;">Apoio</a> 
-            <a href="#projetos" class="nav-link text-sm font-medium hover:opacity-70 transition-opacity" style="color: #8bd9fd;">Projetos</a> 
-            <a href="#tecnologia" class="nav-link text-sm font-medium hover:opacity-70 transition-opacity" style="color: #8bd9fd;">Tecnologia</a>
-            
-            <div id="auth-area" class="flex items-center gap-2 ml-2">
-              <button id="login-btn" class="px-3 py-2 rounded-full text-sm" style="background: rgba(255,255,255,0.06); color: #fff;">Entrar</button>
-              <button id="logout-btn" class="px-3 py-2 rounded-full text-sm hidden" style="background: rgba(255,255,255,0.06); color: #fff;">Sair</button>
-              <button id="contact-btn" class="px-5 py-2.5 rounded-full text-sm font-semibold text-white transition-all hover:shadow-lg hover:scale-105" style="background: linear-gradient(135deg, #6366f1, #7c3aed);">Fale Conosco</button>
-              <span id="user-badge" style="color:#fff;font-weight:600;display:none;margin-left:6px;"></span>
-            </div>
-          </div>
-
-          <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg" style="color: #8bd9fd;" onclick="toggleMobile()"> 
-            <i data-lucide="menu" style="width:24px;height:24px;"></i> 
-          </button>
-
-        </div>
-      </div>
-
-      <div id="mobile-menu" class="hidden md:hidden border-t px-4 pb-4 mobile-menu">
-        <div class="flex flex-col gap-3 pt-3">
-          <a href="#servicos" class="text-sm font-medium py-2" style="color: #e2e8f0;">Serviços</a> 
-          <a href="#apoio" class="text-sm font-medium py-2" style="color: #e2e8f0;">Apoio</a> 
-          <a href="#projetos" class="text-sm font-medium py-2" style="color: #e2e8f0;">Projetos</a> 
-          <a href="#tecnologia" class="text-sm font-medium py-2" style="color: #e2e8f0;">Tecnologia</a>
-          <button id="contact-btn-mobile" class="px-5 py-2.5 rounded-full text-sm font-semibold text-white w-full" style="background: linear-gradient(135deg, #6366f1, #7c3aed);">Fale Conosco</button>
-        </div>
+    <nav id="mobile-menu" class="hidden border-t border-[#d9d4c8] px-5 py-4 md:hidden" aria-label="Navegação mobile">
+      <div class="flex flex-col gap-3">
+        <a data-template-id="mobile-nav-about" class="canva-link font-medium" href="#sobre">Sobre</a> 
+        <a data-template-id="mobile-nav-lab" class="canva-link font-medium" href="#laboratorio">Laboratório</a> 
+        <a data-template-id="mobile-nav-programs" class="canva-link font-medium" href="#trilhas">Trilhas</a> 
+        <a data-template-id="mobile-nav-contact" class="canva-link font-medium" href="#contato">Contato</a>
       </div>
     </nav>
-    <!-- =========================
-         HERO SECTION
-    ========================= -->
-   <header class="hero-pattern relative overflow-hidden" style="background: linear-gradient(135deg, #003B73 0%, #00264d 60%, #001a36 100%); padding-top: 140px;">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20 lg:py-24 relative z-10">
-     <div class="grid lg:grid-cols-2 gap-12 items-center">
-      <div>
-       <div class="fade-up inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold mb-6" style="background: rgba(124,58,237,0.15); color: #7c3aed;"><span class="w-2 h-2 rounded-full pulse-dot" style="background:#7c3aed;"></span> Transformando o empreendedorismo brasileiro
-       </div>
-       <h1 id="hero-title" class="fade-up delay-1 text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-extrabold leading-tight text-white" style="font-family: 'Plus Jakarta Sans', sans-serif;">Impulso para o seu <span style="color: #7c3aed;">negócio</span> crescer</h1>
-       <p id="hero-subtitle" class="fade-up delay-2 mt-5 text-base sm:text-lg leading-relaxed" style="color: rgba(255,255,255,0.75); max-width: 520px;">Conectamos empreendedores a soluções, capacitação e tecnologia para fortalecer pequenos negócios em todo o Brasil.</p>
-      <div class="fade-up delay-3 flex flex-wrap gap-4 mt-8">
-        <button id="cta-btn" class="px-7 py-3.5 rounded-full font-semibold text-white transition-all hover:shadow-xl hover:scale-105" style="background: linear-gradient(135deg, #7c3aed, #6366f1);">Comece Agora</button>
-        <button id="projects-btn" class="px-7 py-3.5 rounded-full font-semibold transition-all hover:bg-white/10" style="color: white; border: 1.5px solid rgba(255,255,255,0.25);">Conheça os Projetos</button>
-        <button id="mentor-btn" class="px-7 py-3.5 rounded-full font-semibold transition-all hover:bg-white/10" style="color: white; border: 1.5px solid rgba(255,255,255,0.25);">Seja Mentor</button>
-      </div>
-       </div>
-       
-       <div class="fade-up delay-4 hidden lg:block">
-         <div class="grid grid-cols-2 gap-4">
-          <div class="p-6 rounded-2xl" style="background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1);">
-           <div class="text-3xl font-extrabold counter-number" data-value="12" data-suffix="M+" style="font-family:'Plus Jakarta Sans',sans-serif; color:#ffffff;">12M+</div>
-           <div class="text-sm mt-1" style="color:rgba(255,255,255,0.6);">Empreendedores atendidos</div>
-          </div>
-          <div class="p-6 rounded-2xl" style="background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1);">
-           <div class="text-3xl font-extrabold counter-number" data-value="5500" style="font-family:'Plus Jakarta Sans',sans-serif; color:#e76dffa4;">5.500</div>
-           <div class="text-sm mt-1" style="color:rgba(255,255,255,0.6);">Municípios alcançados</div>
-          </div>
-          <div class="p-6 rounded-2xl" style="background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1);">
-           <div class="text-3xl font-extrabold counter-number" data-value="800" data-suffix="+" style="font-family:'Plus Jakarta Sans',sans-serif; color:#ffffff;">800+</div>
-           <div class="text-sm mt-1" style="color:rgba(255,255,255,0.6);">Projetos ativos</div>
-          </div>
-          <div class="p-6 rounded-2xl" style="background: rgba(248, 246, 246, 0.07); border: 1px solid rgba(255,255,255,0.1);">
-           <div class="text-3xl font-extrabold counter-number" data-value="97" data-suffix="%" style="font-family:'Plus Jakarta Sans',sans-serif; color:#ffffff;">97%</div>
-           <div class="text-sm mt-1" style="color:rgba(255,255,255,0.6);">Satisfação dos clientes</div>
-          </div>
-         </div>
-       </div>
-      </div>
-     </div>
-     
-    <svg class="w-full" viewbox="0 0 1440 80" preserveaspectratio="none" style="display:block; margin-bottom:-1px;"><path d="M0,40 C360,80 720,0 1080,40 C1260,60 1380,50 1440,40 L1440,80 L0,80 Z" fill="#ffffff" />
-    </svg>
-   </header>
-   <!-- =========================================================
-     NOVA SEÇÃO: PAINEL DINÂMICO IMPULSA+ (AS 5 IDEIAS DO TCC)
-     ========================================================= -->
-<section id="painel-impulsa" class="hidden py-12 bg-slate-900 text-white border-b border-slate-800">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    
-    <!-- Boas-vindas e Identificação da Fase (Ideia 1) -->
-    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 pb-6 border-b border-slate-800 gap-4">
-      <div>
-        <h2 class="text-2xl sm:text-3xl font-extrabold text-white" style="font-family:'Plus Jakarta Sans',sans-serif;">
-          Olá, <span id="painel-user-nome" class="text-indigo-400">Empreendedor</span>!
-        </h2>
-        <p class="text-slate-400 text-sm mt-1">Bem-vindo ao seu ecossistema de inovação em tempo real.</p>
-      </div>
-      <div class="flex items-center gap-3 bg-slate-800 px-4 py-2 rounded-2xl border border-slate-700">
-        <span class="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></span>
-        <span class="text-xs font-semibold uppercase tracking-wider text-slate-300">Fase Atual:</span>
-        <span id="painel-user-fase" class="text-sm font-bold text-emerald-400">Identificando...</span>
-      </div>
-    </div>
+  </header>
 
-    <!-- Grid Principal: Gráficos (Ideia 5) e Trilhas (Ideia 4) -->
-    <div class="grid lg:grid-cols-3 gap-8 mb-10">
-      
-      <!-- CARD DO PAINEL DINÂMICO / METRICAS (Ideia 5) -->
-      <div class="lg:col-span-2 bg-slate-950 p-6 rounded-3xl border border-white/5 shadow-xl">
-        <div class="flex justify-between items-center mb-4">
-          <h3 class="font-bold text-lg text-slate-200 flex items-center gap-2">
-            <i data-lucide="bar-chart-3" class="text-indigo-400 w-5 h-5"></i> Desempenho da Empresa (Tempo Real)
-          </h3>
-          <span class="text-xs bg-indigo-500/10 text-indigo-400 px-2 py-1 rounded-md font-medium">Métricas Ativas</span>
-        </div>
-        <!-- Canvas onde o Chart.js vai renderizar o gráfico -->
-        <div class="relative w-full h-64 flex items-center justify-center bg-slate-900/50 rounded-2xl p-2">
-          <canvas id="graficoDesempenho"></canvas>
-        </div>
-      </div>
-
-      <!-- CARD DA TRILHA DE APRENDIZADO PERSONALIZADA (Ideia 4) -->
-      <div class="bg-slate-950 p-6 rounded-3xl border border-white/5 shadow-xl">
-        <h3 class="font-bold text-lg text-slate-200 mb-4 flex items-center gap-2">
-          <i data-lucide="git-commit" class="text-purple-400 w-5 h-5"></i> Sua Trilha Recomendada
-        </h3>
-        <div id="container-trilha" class="space-y-3">
-          <!-- Inserido dinamicamente via JS com base na fase -->
-        </div>
-      </div>
-
-    </div>
-
-    <!-- Grid Secundário: Conquistas (Ideia 3) e Comunidade (Ideia 2) -->
-    <div class="grid lg:grid-cols-3 gap-8">
-      
-      <!-- SEÇÃO DE CONQUISTAS E SELOS (Ideia 3) -->
-      <div class="bg-slate-950 p-6 rounded-3xl border border-white/5 shadow-xl flex flex-col justify-between">
-        <div>
-          <h3 class="font-bold text-lg text-slate-200 mb-4 flex items-center gap-2">
-            <i data-lucide="award" class="text-amber-400 w-5 h-5"></i> Seus Selos e Conquistas
-          </h3>
-          <div class="grid grid-cols-2 gap-4 text-center">
-            <div id="selo-cadastro" class="p-3 bg-slate-900 rounded-2xl border border-slate-800 flex flex-col items-center justify-center opacity-40 transition-opacity">
-              <span class="text-2xl mb-1">🚀</span>
-              <span class="text-xs font-bold text-slate-300">Impulsa Start</span>
-            </div>
-            <div id="selo-quiz" class="p-3 bg-slate-900 rounded-2xl border border-slate-800 flex flex-col items-center justify-center opacity-40 transition-opacity">
-              <span class="text-2xl mb-1">🎯</span>
-              <span class="text-xs font-bold text-slate-300">Diagnóstico OK</span>
-            </div>
-            <div id="selo-comunidade" class="p-3 bg-slate-900 rounded-2xl border border-slate-800 flex flex-col items-center justify-center opacity-40 transition-opacity">
-              <span class="text-2xl mb-1">💬</span>
-              <span class="text-xs font-bold text-slate-300">Networking</span>
-            </div>
-            <div id="selo-meta" class="p-3 bg-slate-900 rounded-2xl border border-slate-800 flex flex-col items-center justify-center opacity-40 transition-opacity">
-              <span class="text-2xl mb-1">🏆</span>
-              <span class="text-xs font-bold text-slate-300">Meta Batida</span>
-            </div>
+  <main>
+    <section id="inicio" class="w-full">
+      <div class="mx-auto grid max-w-7xl lg:grid-cols-[1.02fr_.98fr]">
+        <div data-template-id="hero-panel" class="canva-panel flex min-h-[460px] flex-col justify-between bg-[#12211c] px-6 py-12 text-[#fffdf8] sm:px-10 lg:px-14 lg:py-16">
+          <div>
+            <p data-template-id="hero-kicker" class="canva-text mb-7 text-xs font-bold uppercase tracking-[.2em]">Educação &amp; Narrativa</p>
+            <div class="scribble mb-6"></div>
+            <h1 data-template-id="hero-title" class="canva-text display-font max-w-xl text-4xl sm:text-5xl font-bold leading-[1.04]">Transformando dados em histórias vivas</h1>
+            <p data-template-id="hero-description" class="canva-text mt-7 max-w-lg text-lg leading-relaxed">Uma plataforma focada em metodologias ativas, experiências imersivas e comunidades de aprendizagem.</p>
+          </div>
+          <div class="reveal reveal-delay-2 mt-10 flex flex-wrap items-center gap-5">
+            <a data-template-id="hero-cta" class="canva-button inline-flex items-center gap-2 bg-[#d9ee69] text-[#12211c] px-5 py-3.5 font-bold transition hover:brightness-110" href="#laboratorio">Conheça o Laboratório</a> 
+            <span data-template-id="hero-note" class="canva-text text-sm">Aprenda na prática</span>
           </div>
         </div>
-        <p class="text-slate-500 text-xs mt-4 text-center">Conclua atividades para desbloquear novos selos.</p>
+        <div class="hero-image-wrap">
+          <img data-template-id="hero-image" src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&amp;fit=crop&amp;w=800&amp;q=80" class="canva-image" loading="lazy" alt="Estudantes colaborando">
+          <div class="absolute bottom-0 left-0 z-10 m-5 max-w-[280px] bg-[#fffdf8] p-5 text-[#12211c] sm:m-7">
+            <p data-template-id="hero-image-caption" class="canva-text text-sm font-semibold leading-snug">Metodologias aplicadas em ambientes dinâmicos de aprendizagem.</p>
+          </div>
+        </div>
       </div>
+    </section>
 
-      <!-- SEÇÃO DA COMUNIDADE / NETWORKING (Ideia 2) -->
-      <div class="lg:col-span-2 bg-slate-950 p-6 rounded-3xl border border-white/5 shadow-xl">
-        <h3 class="font-bold text-lg text-slate-200 mb-4 flex items-center gap-2">
-          <i data-lucide="users" class="text-emerald-400 w-5 h-5"></i> Comunidade & Networking Impulsa+
-        </h3>
+    <section id="sobre" class="w-full bg-[#f6f2e9] px-5 py-20 lg:px-8 lg:py-28">
+      <div class="mx-auto max-w-7xl">
+        <div class="max-w-3xl">
+          <p data-template-id="about-kicker" class="canva-text text-xs font-bold uppercase tracking-[.2em]">Nossos Pilares</p>
+          <h2 data-template-id="about-title" class="canva-text display-font mt-4 text-3xl sm:text-4xl font-bold leading-tight">Como remodelamos a experiência educativa</h2>
+        </div>
+        <div class="mt-12 grid gap-px overflow-hidden border border-[#bfc4b9] bg-[#bfc4b9] md:grid-cols-3">
+          <article data-template-id="value-card-one" class="canva-card reveal bg-[#fffdf8] p-7 lg:p-9">
+            <span class="mb-8 inline-flex h-11 w-11 items-center justify-center rounded-full bg-[#d9ee69]"><i data-lucide="book-open" width="21" height="21"></i></span>
+            <h3 data-template-id="value-one-title" class="canva-text display-font text-xl font-bold leading-tight">Narrativas Reais</h3>
+            <p data-template-id="value-one-text" class="canva-text mt-4 leading-relaxed">Conectamos conceitos teóricos a histórias do mundo real para criar engajamento profundo.</p>
+          </article>
+          <article data-template-id="value-card-two" class="canva-card reveal reveal-delay-1 bg-[#fffdf8] p-7 lg:p-9">
+            <span class="mb-8 inline-flex h-11 w-11 items-center justify-center rounded-full bg-[#f5b38f]"><i data-lucide="sparkles" width="21" height="21"></i></span>
+            <h3 data-template-id="value-two-title" class="canva-text display-font text-xl font-bold leading-tight">Inovação Aberta</h3>
+            <p data-template-id="value-two-text" class="canva-text mt-4 leading-relaxed">Utilizamos ferramentas tecnológicas para simular cenários e acelerar o aprendizado.</p>
+          </article>
+          <article data-template-id="value-card-three" class="canva-card reveal reveal-delay-2 bg-[#fffdf8] p-7 lg:p-9">
+            <span class="mb-8 inline-flex h-11 w-11 items-center justify-center rounded-full bg-[#c7dddc]"><i data-lucide="users" width="21" height="21"></i></span>
+            <h3 data-template-id="value-three-title" class="canva-text display-font text-xl font-bold leading-tight">Comunidade Ativa</h3>
+            <p data-template-id="value-three-text" class="canva-text mt-4 leading-relaxed">Troca de conhecimento entre pares com mediação e feedback constante.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="laboratorio" class="w-full bg-[#e2e8df] px-5 py-20 lg:px-8 lg:py-28">
+      <div class="mx-auto max-w-7xl">
+        <div class="grid gap-10 lg:grid-cols-[.78fr_1.22fr] lg:items-end">
+          <div>
+            <p data-template-id="lab-kicker" class="canva-text text-xs font-bold uppercase tracking-[.2em]">Espaço Prático</p>
+            <h2 data-template-id="lab-title" class="canva-text display-font mt-4 text-3xl sm:text-4xl font-bold leading-tight">Laboratório Experimental</h2>
+          </div>
+          <p data-template-id="lab-intro" class="canva-text max-w-xl leading-relaxed">Teste abordagens diferentes e escolha o foco ideal para a sua jornada de desenvolvimento.</p>
+        </div>
         
-        <!-- Formulário para Criar Postagem -->
-        <div class="flex gap-3 mb-4">
-          <input id="comunidade-input" type="text" placeholder="Compartilhe uma ideia, insight ou meta batida com a rede..." class="w-full bg-slate-900 border border-slate-800 rounded-2xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-indigo-500">
-          <button id="comunidade-postar-btn" class="bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-sm px-5 py-2.5 rounded-2xl transition-all flex items-center gap-1">
-            Postar <i data-lucide="send" class="w-4 h-4"></i>
+        <div data-template-id="simulator-panel" class="canva-panel mt-12 border border-[#12211c] bg-[#fffdf8] p-6 shadow-[7px_7px_0_#12211c] lg:p-9">
+          <div class="flex flex-col justify-between gap-5 border-b border-[#c5ccc3] pb-7 md:flex-row md:items-end">
+            <div>
+              <p data-template-id="simulator-eyebrow" class="canva-text text-xs font-bold uppercase tracking-[.16em]">Simulador</p>
+              <h3 data-template-id="simulator-title" class="canva-text display-font mt-3 text-2xl font-bold leading-tight">Escolha uma abordagem</h3>
+            </div>
+            <p data-template-id="simulator-help" class="canva-text max-w-sm text-sm leading-relaxed">Clique nos botões abaixo para ver o impacto no resultado.</p>
+          </div>
+          <div class="mt-8 grid gap-4 md:grid-cols-3" role="group" aria-label="Escolha o foco da jornada">
+            <button data-choice="story" data-template-id="choice-story" class="canva-button choice-button p-5 text-left font-bold focus:outline-none focus:ring-2 focus:ring-[#ef6f3c]" type="button">Foco em História</button> 
+            <button data-choice="experiment" data-template-id="choice-experiment" class="canva-button choice-button p-5 text-left font-bold focus:outline-none focus:ring-2 focus:ring-[#ef6f3c]" type="button">Foco em Experimento</button> 
+            <button data-choice="community" data-template-id="choice-community" class="canva-button choice-button p-5 text-left font-bold focus:outline-none focus:ring-2 focus:ring-[#ef6f3c]" type="button">Foco em Comunidade</button>
+          </div>
+          <div class="mt-8">
+            <div id="result-default" data-template-id="result-default" class="sim-result canva-banner border-l-4 border-[#ef6f3c] bg-[#f6f2e9] p-5">
+              Selecione uma das opções acima para visualizar os detalhes do plano.
+            </div>
+            <div id="result-story" data-template-id="result-story" class="sim-result canva-banner border-l-4 border-[#ef6f3c] bg-[#fff1e9] p-5" hidden>
+              <strong>Plano focado em Storytelling:</strong> Desenvolvimento focado em estruturação de casos e apresentações de alto impacto.
+            </div>
+            <div id="result-experiment" data-template-id="result-experiment" class="sim-result canva-banner border-l-4 border-[#12211c] bg-[#eef7c6] p-5" hidden>
+              <strong>Plano focado em Experimento:</strong> Prototipagem rápida, testes de usabilidade e iterações constantes.
+            </div>
+            <div id="result-community" data-template-id="result-community" class="sim-result canva-banner border-l-4 border-[#2f6f70] bg-[#e2f0ef] p-5" hidden>
+              <strong>Plano focado em Comunidade:</strong> Dinâmicas em grupo, fóruns de debate e projetos colaborativos.
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-20 flex flex-col justify-between gap-6 md:flex-row md:items-end">
+          <div class="max-w-2xl">
+            <p data-template-id="methods-kicker" class="canva-text text-xs font-bold uppercase tracking-[.2em]">Interatividade</p>
+            <h2 data-template-id="methods-title" class="canva-text display-font mt-4 text-3xl font-bold leading-tight">Metodologias Interativas</h2>
+          </div>
+          <p data-template-id="methods-note" class="canva-text max-w-sm leading-relaxed">Clique nos cartões abaixo para virar e descobrir os detalhes.</p>
+        </div>
+        <div class="mt-10 grid gap-6 md:grid-cols-3">
+          <button class="method-card text-left focus:outline-none focus:ring-2 focus:ring-[#ef6f3c]" type="button" aria-pressed="false">
+            <div class="method-inner">
+              <article data-template-id="method-one-front" class="method-front canva-card bg-[#12211c] p-7 text-[#fffdf8]">
+                <div>
+                  <span class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#d9ee69] text-[#12211c]"><i data-lucide="pen-line" width="19" height="19"></i></span>
+                  <h3 data-template-id="method-one-title" class="canva-text display-font mt-8 text-xl font-bold leading-tight">Escrita Criativa</h3>
+                  <p data-template-id="method-one-summary" class="canva-text mt-4 leading-relaxed">Aprenda a estruturar ideias em formatos claros e envolventes.</p>
+                </div>
+                <span data-template-id="method-flip-hint" class="canva-text text-xs font-bold uppercase tracking-[.13em]">Clique para virar ↺</span>
+              </article>
+              <article data-template-id="method-one-back" class="method-back canva-card bg-[#ef6f3c] p-7 text-white">
+                <div>
+                  <span class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#12211c] text-[#fffdf8]"><i data-lucide="lightbulb" width="19" height="19"></i></span>
+                  <h3 data-template-id="method-one-back-title" class="canva-text display-font mt-8 text-xl font-bold leading-tight">Módulos Práticos</h3>
+                  <p data-template-id="method-one-back-text" class="canva-text mt-4 leading-relaxed">Exercícios guiados com exemplos do dia a dia e aplicação imediata.</p>
+                </div>
+              </article>
+            </div>
+          </button>
+          
+          <button class="method-card text-left focus:outline-none focus:ring-2 focus:ring-[#ef6f3c]" type="button" aria-pressed="false">
+            <div class="method-inner">
+              <article data-template-id="method-two-front" class="method-front canva-card bg-[#fffdf8] p-7">
+                <div>
+                  <span class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#f5b38f]"><i data-lucide="flask-conical" width="19" height="19"></i></span>
+                  <h3 data-template-id="method-two-title" class="canva-text display-font mt-8 text-xl font-bold leading-tight">Prototipagem</h3>
+                  <p data-template-id="method-two-summary" class="canva-text mt-4 leading-relaxed">Teste conceitos rapidamente antes da implementação final.</p>
+                </div>
+                <span data-template-id="method-flip-hint-two" class="canva-text text-xs font-bold uppercase tracking-[.13em]">Clique para virar ↺</span>
+              </article>
+              <article data-template-id="method-two-back" class="method-back canva-card bg-[#d9ee69] p-7 text-[#12211c]">
+                <div>
+                  <span class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#12211c] text-[#fffdf8]"><i data-lucide="search" width="19" height="19"></i></span>
+                  <h3 data-template-id="method-two-back-title" class="canva-text display-font mt-8 text-xl font-bold leading-tight">Análise de Dados</h3>
+                  <p data-template-id="method-two-back-text" class="canva-text mt-4 leading-relaxed">Métricas claras para entender o progresso e realizar ajustes.</p>
+                </div>
+              </article>
+            </div>
+          </button>
+
+          <button class="method-card text-left focus:outline-none focus:ring-2 focus:ring-[#ef6f3c]" type="button" aria-pressed="false">
+            <div class="method-inner">
+              <article data-template-id="method-three-front" class="method-front canva-card bg-[#c7dddc] p-7">
+                <div>
+                  <span class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#12211c] text-[#fffdf8]"><i data-lucide="messages-square" width="19" height="19"></i></span>
+                  <h3 data-template-id="method-three-title" class="canva-text display-font mt-8 text-xl font-bold leading-tight">Debates Guiados</h3>
+                  <p data-template-id="method-three-summary" class="canva-text mt-4 leading-relaxed">Espaço seguro para trocas construtivas e feedbacks.</p>
+                </div>
+                <span data-template-id="method-flip-hint-three" class="canva-text text-xs font-bold uppercase tracking-[.13em]">Clique para virar ↺</span>
+              </article>
+              <article data-template-id="method-three-back" class="method-back canva-card bg-[#2f6f70] p-7 text-[#fffdf8]">
+                <div>
+                  <span class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#d9ee69] text-[#12211c]"><i data-lucide="network" width="19" height="19"></i></span>
+                  <h3 data-template-id="method-three-back-title" class="canva-text display-font mt-8 text-xl font-bold leading-tight">Rede de Apoio</h3>
+                  <p data-template-id="method-three-back-text" class="canva-text mt-4 leading-relaxed">Conexão com mentores e profissionais da área.</p>
+                </div>
+              </article>
+            </div>
           </button>
         </div>
+      </div>
+    </section>
 
-        <!-- Feed de Mensagens -->
-        <div id="comunidade-feed" class="space-y-3 max-h-48 overflow-y-auto pr-2 custom-scrollbar">
-          <!-- Post simulado estático fixo para gerar volume inicial -->
-          <div class="bg-slate-900/60 p-3 rounded-2xl border border-slate-800 text-xs">
-            <div class="flex justify-between font-bold text-indigo-400 mb-1">
-              <span>Amanda Silva @VerdeMarket</span>
-              <span class="text-slate-500 font-normal">Há 10 min</span>
+    <section id="trilhas" class="w-full bg-[#f6f2e9] px-5 py-20 lg:px-8 lg:py-28">
+      <div class="mx-auto max-w-7xl">
+        <div class="flex flex-col justify-between gap-6 md:flex-row md:items-end">
+          <div class="max-w-2xl">
+            <p data-template-id="courses-kicker" class="canva-text text-xs font-bold uppercase tracking-[.2em]">Programas</p>
+            <h2 data-template-id="courses-title" class="canva-text display-font mt-4 text-3xl font-bold leading-tight">Trilhas de Aprendizagem</h2>
+          </div>
+          <p data-template-id="courses-intro" class="canva-text max-w-sm leading-relaxed">Escolha a trilha que mais combina com seus objetivos atuais.</p>
+        </div>
+        <div class="mt-12 grid gap-6 md:grid-cols-3">
+          <article data-template-id="course-one-card" class="canva-card course-card overflow-hidden bg-[#fffdf8]">
+            <div class="h-56 overflow-hidden">
+              <img data-template-id="course-one-image" src="https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&amp;fit=crop&amp;w=600&amp;q=80" class="canva-image h-full w-full object-cover" loading="lazy" alt="Curso 1">
             </div>
-            <p class="text-slate-300">Acabei de fechar uma parceria de distribuição incrível usando a rede do Impulsa+! Vamos que vamos! 🚀</p>
-          </div>
-        </div>
-      </div>
+            <div class="p-6">
+              <p data-template-id="course-one-label" class="canva-text text-xs font-bold uppercase tracking-[.16em]">Trilha 01</p>
+              <h3 data-template-id="course-one-title" class="canva-text display-font mt-3 text-xl font-bold leading-tight">Narrativas que Ensinam</h3>
+              <p data-template-id="course-one-text" class="canva-text mt-4 leading-relaxed">Aprenda a aplicar técnicas de storytelling em projetos educacionais.</p>
+              <button data-interest="Narrativas que ensinam" data-template-id="course-one-button" class="canva-button mt-7 inline-flex font-bold underline decoration-2 underline-offset-4" type="button">Tenho interesse</button>
+            </div>
+          </article>
 
-    </div>
+          <article data-template-id="course-two-card" class="canva-card course-card overflow-hidden bg-[#fffdf8]">
+            <div class="h-56 overflow-hidden">
+              <img data-template-id="course-two-image" src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&amp;fit=crop&amp;w=600&amp;q=80" class="canva-image h-full w-full object-cover" loading="lazy" alt="Curso 2">
+            </div>
+            <div class="p-6">
+              <p data-template-id="course-two-label" class="canva-text text-xs font-bold uppercase tracking-[.16em]">Trilha 02</p>
+              <h3 data-template-id="course-two-title" class="canva-text display-font mt-3 text-xl font-bold leading-tight">Tecnologia com Intenção</h3>
+              <p data-template-id="course-two-text" class="canva-text mt-4 leading-relaxed">Uso consciente e prático de ferramentas digitais no ensino.</p>
+              <button data-interest="Tecnologia com intenção" data-template-id="course-two-button" class="canva-button mt-7 inline-flex font-bold underline decoration-2 underline-offset-4" type="button">Tenho interesse</button>
+            </div>
+          </article>
 
-  </div>
-</section>
+          <article data-template-id="course-three-card" class="canva-card course-card overflow-hidden bg-[#fffdf8]">
+            <div class="h-56 overflow-hidden">
+              <img data-template-id="course-three-image" src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&amp;fit=crop&amp;w=600&amp;q=80" class="canva-image h-full w-full object-cover" loading="lazy" alt="Curso 3">
+            </div>
+            <div class="p-6">
+              <p data-template-id="course-three-label" class="canva-text text-xs font-bold uppercase tracking-[.16em]">Trilha 03</p>
+              <h3 data-template-id="course-three-title" class="canva-text display-font mt-3 text-xl font-bold leading-tight">Comunidades que Criam</h3>
+              <p data-template-id="course-three-text" class="canva-text mt-4 leading-relaxed">Como engajar redes colaborativas para construir projetos em conjunto.</p>
+              <button data-interest="Comunidades que criam" data-template-id="course-three-button" class="canva-button mt-7 inline-flex font-bold underline decoration-2 underline-offset-4" type="button">Tenho interesse</button>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
 
-<!-- IMPORTAÇÃO DO CHART.JS PARA O GRÁFICO DINÂMICO -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- =========================
-         SERVICES SECTION
-    ========================= -->
-   <section id="servicos" class="grid-pattern py-16 sm:py-24" style="background-color: #ffffff;">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-     <div class="text-center mb-14"><span class="inline-block px-4 py-1.5 rounded-full text-xs font-bold tracking-wider uppercase mb-4" style="background: rgba(0,59,115,0.06); color: #003B73;">O que fazemos</span>
-      <h2 id="services-title" class="text-2xl sm:text-3xl lg:text-4xl font-extrabold" style="font-family:'Plus Jakarta Sans',sans-serif; color: #003B73;">Nossos Serviços</h2>
-      <p class="mt-3 max-w-xl mx-auto" style="color: #64748b;">Soluções completas para cada etapa do seu empreendimento</p>
-     </div>
-     <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"><!-- Card 1 -->
-      <div class="card-hover p-7 rounded-2xl border" style="background:#f8f7fc; border-color: rgba(99,102,241,0.1);">
-       <div class="w-14 h-14 rounded-xl flex items-center justify-center mb-5" style="background: rgba(99,102,241,0.08);"><i data-lucide="graduation-cap" style="width:26px;height:26px;color:#6366f1;"></i>
-       </div>
-       <h3 class="text-lg font-bold mb-2" style="color:#1e1b4b; font-family:'Plus Jakarta Sans',sans-serif;">Capacitação</h3>
-       <p class="text-sm leading-relaxed" style="color:#64748b;">Cursos, oficinas e treinamentos presenciais e online para desenvolver competências empreendedoras.</p>
-      </div><!-- Card 2 -->
-      <div class="card-hover p-7 rounded-2xl border" style="background:#f8f7fc; border-color: rgba(99,102,241,0.1);">
-       <div class="w-14 h-14 rounded-xl flex items-center justify-center mb-5" style="background: rgba(124,58,237,0.08);"><i data-lucide="trending-up" style="width:26px;height:26px;color:#7c3aed;"></i>
-       </div>
-       <h3 class="text-lg font-bold mb-2" style="color:#1e1b4b; font-family:'Plus Jakarta Sans',sans-serif;">Consultoria</h3>
-       <p class="text-sm leading-relaxed" style="color:#64748b;">Orientação estratégica personalizada para gestão, finanças, marketing e inovação do seu negócio.</p>
-      </div><!-- Card 3 -->
-      <div class="card-hover p-7 rounded-2xl border" style="background:#f8f7fc; border-color: rgba(99,102,241,0.1);">
-       <div class="w-14 h-14 rounded-xl flex items-center justify-center mb-5" style="background: rgba(99,102,241,0.08);"><i data-lucide="handshake" style="width:26px;height:26px;color:#6366f1;"></i>
-       </div>
-       <h3 class="text-lg font-bold mb-2" style="color:#1e1b4b; font-family:'Plus Jakarta Sans',sans-serif;">Acesso a Mercados</h3>
-       <p class="text-sm leading-relaxed" style="color:#64748b;">Conexão com compradores, feiras de negócios e plataformas para expandir sua atuação comercial.</p>
-      </div><!-- Card 4 -->
-      <div class="card-hover p-7 rounded-2xl border" style="background:#f8f7fc; border-color: rgba(99,102,241,0.1);">
-       <div class="w-14 h-14 rounded-xl flex items-center justify-center mb-5" style="background: rgba(124,58,237,0.08);"><i data-lucide="banknote" style="width:26px;height:26px;color:#7c3aed;"></i>
-       </div>
-       <h3 class="text-lg font-bold mb-2" style="color:#1e1b4b; font-family:'Plus Jakarta Sans',sans-serif;">Crédito Orientado</h3>
-       <p class="text-sm leading-relaxed" style="color:#64748b;">Orientação sobre linhas de financiamento e microcrédito acessíveis para pequenos empreendedores.</p>
-      </div><!-- Card 5 -->
-      <div class="card-hover p-7 rounded-2xl border" style="background:#f8f7fc; border-color: rgba(99,102,241,0.1);">
-       <div class="w-14 h-14 rounded-xl flex items-center justify-center mb-5" style="background: rgba(99,102,241,0.08);"><i data-lucide="file-text" style="width:26px;height:26px;color:#6366f1;"></i>
-       </div>
-       <h3 class="text-lg font-bold mb-2" style="color:#1e1b4b; font-family:'Plus Jakarta Sans',sans-serif;">Formalização</h3>
-       <p class="text-sm leading-relaxed" style="color:#64748b;">Apoio completo para abrir seu MEI, registro de marca e orientação jurídica simplificada.</p>
-      </div><!-- Card 6 -->
-      <div class="card-hover p-7 rounded-2xl border" style="background:#f8f7fc; border-color: rgba(99,102,241,0.1);">
-       <div class="w-14 h-14 rounded-xl flex items-center justify-center mb-5" style="background: rgba(124,58,237,0.08);"><i data-lucide="globe" style="width:26px;height:26px;color:#7c3aed;"></i>
-       </div>
-       <h3 class="text-lg font-bold mb-2" style="color:#1e1b4b; font-family:'Plus Jakarta Sans',sans-serif;">Internacionalização</h3>
-       <p class="text-sm leading-relaxed" style="color:#64748b;">Programas de exportação e conexão com mercados internacionais para negócios preparados.</p>
-      </div>
-     </div>
-    </div>
-   </section><!-- Support Section -->
-    <!-- =========================
-         SUPPORT SECTION
-    ========================= -->
-   <section id="apoio" class="py-16 sm:py-24" style="background-color: #f0f0f8;">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-     <div class="grid lg:grid-cols-2 gap-12 items-center">
-      <div><span class="inline-block px-4 py-1.5 rounded-full text-xs font-bold tracking-wider uppercase mb-4" style="background: rgba(0,59,115,0.08); color: #003B73;">Apoio ao Empreendedor</span>
-       <h2 id="support-title" class="text-2xl sm:text-3xl lg:text-4xl font-extrabold mb-5" style="font-family:'Plus Jakarta Sans',sans-serif; color: #1e1b4b;">Estamos ao seu lado em cada passo</h2>
-       <p class="mb-8 leading-relaxed" style="color: #64748b;">De microempreendedores individuais a pequenas empresas, oferecemos suporte contínuo para transformar ideias em negócios sustentáveis.</p>
-       <div class="space-y-4">
-        <div class="flex items-start gap-4">
-         <div class="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0" style="background: linear-gradient(135deg, #7c3aed, #6366f1);"><i data-lucide="check" style="width:18px;height:18px;color:#fff;"></i>
-         </div>
-         <div>
-          <h4 class="font-bold text-sm" style="color:#1e1b4b;">Mentoria Personalizada</h4>
-          <p class="text-sm mt-1" style="color:#64748b;">Acompanhamento individual com especialistas do mercado</p>
-         </div>
+    <section id="contato" class="w-full bg-[#12211c] px-5 py-20 text-[#fffdf8] lg:px-8 lg:py-28">
+      <div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[.8fr_1.2fr]">
+        <div>
+          <p data-template-id="contact-kicker" class="canva-text text-xs font-bold uppercase tracking-[.2em]">Contato</p>
+          <h2 data-template-id="contact-title" class="canva-text display-font mt-4 text-3xl font-bold leading-tight">Fale com a equipe</h2>
+          <p data-template-id="contact-text" class="canva-text mt-6 max-w-md text-lg leading-relaxed">Preencha os campos para tirar dúvidas ou iniciar uma parceria com a Story Education.</p>
         </div>
-        <div class="flex items-start gap-4">
-         <div class="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0" style="background: linear-gradient(135deg, #7c3aed, #6366f1);"><i data-lucide="check" style="width:18px;height:18px;color:#fff;"></i>
-         </div>
-         <div>
-          <h4 class="font-bold text-sm" style="color:#1e1b4b;">Diagnóstico Empresarial</h4>
-          <p class="text-sm mt-1" style="color:#64748b;">Análise completa para identificar oportunidades de melhoria</p>
-         </div>
-        </div>
-        <div class="flex items-start gap-4">
-         <div class="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0" style="background: linear-gradient(135deg, #7c3aed, #6366f1);"><i data-lucide="check" style="width:18px;height:18px;color:#fff;"></i>
-         </div>
-         <div>
-          <h4 class="font-bold text-sm" style="color:#1e1b4b;">Rede de Parceiros</h4>
-          <p class="text-sm mt-1" style="color:#64748b;">Acesso a uma rede de instituições e especialistas em todo o país</p>
-         </div>
-        </div>
-       </div>
-      </div>
-      <div class="grid grid-cols-2 gap-4">
-       <div class="p-6 rounded-2xl text-center" style="background:#fff; box-shadow: 0 4px 20px rgba(0,59,115,0.06);">
-         <div class="text-4xl mb-3">
-           <i data-lucide="rocket" style="width:36px;height:36px;color:#6366f1;"></i>
+        <form id="contact-form" class="border-t border-[#74857b] pt-7" novalidate>
+          <div class="grid gap-6 sm:grid-cols-2">
+            <div>
+              <label data-template-id="name-label" class="canva-text mb-2 block text-sm font-bold" for="name">Nome completo</label> 
+              <input id="name" class="field-control" type="text" name="name" autocomplete="name" required>
+            </div>
+            <div>
+              <label data-template-id="email-label" class="canva-text mb-2 block text-sm font-bold" for="email">E-mail</label> 
+              <input id="email" class="field-control" type="email" name="email" autocomplete="email" required>
+            </div>
           </div>
-        <div class="text-2xl font-extrabold" style="color:#1e1b4b; font-family:'Plus Jakarta Sans',sans-serif;">
-         3.200
-        </div>
-        <div class="text-xs mt-1" style="color:#64748b;">
-         Empresas aceleradas
-        </div>
-       </div>
-       <div class="p-6 rounded-2xl text-center" style="background: linear-gradient(135deg, #6366f1, #7c3aed); box-shadow: 0 4px 20px rgba(99,102,241,0.2);">
-         <div class="text-4xl mb-3">
-           <i data-lucide="trending-up" style="width:36px;height:36px;color:#fff;"></i>
+          <div class="mt-6">
+            <label data-template-id="interest-label" class="canva-text mb-2 block text-sm font-bold" for="interest">Interesse principal</label> 
+            <select id="interest" class="field-control" name="interest" required> 
+              <option value="" disabled selected>Escolha uma opção</option> 
+              <option value="Narrativas que ensinam">Narrativas que ensinam</option> 
+              <option value="Tecnologia com intenção">Tecnologia com intenção</option> 
+              <option value="Comunidades que criam">Comunidades que criam</option> 
+              <option value="Parcerias e projetos">Parcerias e projetos</option> 
+              <option value="Outro assunto">Outro assunto</option> 
+            </select>
           </div>
-        <div class="text-2xl font-extrabold text-white" style="font-family:'Plus Jakarta Sans',sans-serif;">
-         45%
-        </div>
-        <div class="text-xs mt-1" style="color:rgba(255,255,255,0.7);">
-         Crescimento médio
-        </div>
-       </div>
-       <div class="p-6 rounded-2xl text-center col-span-2" style="background: linear-gradient(135deg, #7c3aed, #6366f1); box-shadow: 0 4px 20px rgba(124,58,237,0.2);">
-        <div class="text-4xl mb-3">
-         🤝
-        </div>
-        <div class="text-2xl font-extrabold text-white" style="font-family:'Plus Jakarta Sans',sans-serif;">
-         500+ Parceiros
-        </div>
-        <div class="text-xs mt-1" style="color:rgba(255,255,255,0.85);">
-         Instituições conectadas ao ecossistema
-        </div>
-       </div>
-      </div>
-     </div>
-    </div>
-   </section><!-- Projects Section -->
-   <section id="projetos" class="py-16 sm:py-24" style="background-color: #f8f7fc;">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-     <div class="text-center mb-14"><span class="inline-block px-4 py-1.5 rounded-full text-xs font-bold tracking-wider uppercase mb-4" style="background: rgba(124,58,237,0.08); color: #7c3aed;">Impacto Social</span>
-      <h2 id="projects-title" class="text-2xl sm:text-3xl lg:text-4xl font-extrabold" style="font-family:'Plus Jakarta Sans',sans-serif; color: #1e1b4b;">Projetos Sociais</h2>
-      <p class="mt-3 max-w-xl mx-auto" style="color: #64748b;">Iniciativas que transformam comunidades através do empreendedorismo</p>
-     </div>
-     <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      <div class="card-hover rounded-2xl overflow-hidden" style="border: 1px solid rgba(99,102,241,0.1);">
-       <div class="h-44 flex items-center justify-center" style="background: linear-gradient(135deg, #6366f1, #7c3aed);"><span class="text-6xl">🌱</span>
-       </div>
-       <div class="p-6" style="background:#fff;"><span class="inline-block px-3 py-1 rounded-full text-xs font-semibold mb-3" style="background: rgba(124,58,237,0.1); color: #7c3aed;">Sustentabilidade</span>
-        <h3 class="font-bold mb-2" style="color:#1e1b4b; font-family:'Plus Jakarta Sans',sans-serif;">Empreender Verde</h3>
-        <p class="text-sm" style="color:#64748b;">Capacitação em negócios sustentáveis para comunidades rurais e periféricas.</p>
-       </div>
-      </div>
-      <div class="card-hover rounded-2xl overflow-hidden" style="border: 1px solid rgba(99,102,241,0.1);">
-      <div class="h-44 flex items-center justify-center" style="background: linear-gradient(135deg, #7c3aed, #6366f1);"><i data-lucide="briefcase" style="width:44px;height:44px;color:#fff;"></i>
-       </div>
-       <div class="p-6" style="background:#fff;"><span class="inline-block px-3 py-1 rounded-full text-xs font-semibold mb-3" style="background: rgba(99,102,241,0.06); color: #6366f1;">Inclusão</span>
-        <h3 class="font-bold mb-2" style="color:#1e1b4b; font-family:'Plus Jakarta Sans',sans-serif;">Mulheres que Empreendem</h3>
-        <p class="text-sm" style="color:#64748b;">Programa de mentoria e crédito exclusivo para empreendedoras de todo o Brasil.</p>
-       </div>
-      </div>
-      <div class="card-hover rounded-2xl overflow-hidden" style="border: 1px solid rgba(99,102,241,0.1);">
-      <div class="h-44 flex items-center justify-center" style="background: linear-gradient(135deg, #1e1b4b, #3730a3);"><i data-lucide="lightbulb" style="width:44px;height:44px;color:#fff;"></i>
-       </div>
-       <div class="p-6" style="background:#fff;"><span class="inline-block px-3 py-1 rounded-full text-xs font-semibold mb-3" style="background: rgba(124,58,237,0.1); color: #7c3aed;">Juventude</span>
-        <h3 class="font-bold mb-2" style="color:#1e1b4b; font-family:'Plus Jakarta Sans',sans-serif;">Jovem Inovador</h3>
-        <p class="text-sm" style="color:#64748b;">Formação de jovens entre 16 e 29 anos para o empreendedorismo digital e criativo.</p>
-       </div>
-      </div>
-     </div>
-    </div>
-   </section><!-- Technology Section -->
-   <section id="tecnologia" class="py-16 sm:py-24" style="background: linear-gradient(135deg, #1e1b4b 0%, #3730a3 100%);">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-     <div class="text-center mb-14"><span class="inline-block px-4 py-1.5 rounded-full text-xs font-bold tracking-wider uppercase mb-4" style="background: rgba(124,58,237,0.15); color: #a78bfa;">Inovação</span>
-      <h2 id="tech-title" class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white" style="font-family:'Plus Jakarta Sans',sans-serif;">Tecnologia &amp; Inovação</h2>
-      <p class="mt-3 max-w-xl mx-auto" style="color: rgba(255,255,255,0.6);">Ferramentas digitais para modernizar e escalar seu negócio</p>
-     </div>
-     <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-      <div class="p-6 rounded-2xl text-center" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.08);">
-       <div class="w-14 h-14 rounded-xl flex items-center justify-center mx-auto mb-4" style="background: rgba(124,58,237,0.15);"><i data-lucide="monitor-smartphone" style="width:26px;height:26px;color:#a78bfa;"></i>
-       </div>
-       <h3 class="font-bold text-white text-sm mb-2" style="font-family:'Plus Jakarta Sans',sans-serif;">Plataforma Digital</h3>
-       <p class="text-xs" style="color:rgba(255,255,255,0.55);">Cursos online e ferramentas de gestão integradas</p>
-      </div>
-      <div class="p-6 rounded-2xl text-center" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.08);">
-       <div class="w-14 h-14 rounded-xl flex items-center justify-center mx-auto mb-4" style="background: rgba(124,58,237,0.15);"><i data-lucide="bar-chart-3" style="width:26px;height:26px;color:#a78bfa;"></i>
-       </div>
-       <h3 class="font-bold text-white text-sm mb-2" style="font-family:'Plus Jakarta Sans',sans-serif;">Análise de Dados</h3>
-       <p class="text-xs" style="color:rgba(255,255,255,0.55);">Dashboards inteligentes para tomada de decisão</p>
-      </div>
-      <div class="p-6 rounded-2xl text-center" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.08);">
-       <div class="w-14 h-14 rounded-xl flex items-center justify-center mx-auto mb-4" style="background: rgba(124,58,237,0.15);"><i data-lucide="bot" style="width:26px;height:26px;color:#a78bfa;"></i>
-       </div>
-       <h3 class="font-bold text-white text-sm mb-2" style="font-family:'Plus Jakarta Sans',sans-serif;">IA Empreendedora</h3>
-       <p class="text-xs" style="color:rgba(255,255,255,0.55);">Assistentes virtuais para orientação de negócios</p>
-      </div>
-      <div class="p-6 rounded-2xl text-center" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.08);">
-       <div class="w-14 h-14 rounded-xl flex items-center justify-center mx-auto mb-4" style="background: rgba(124,58,237,0.15);"><i data-lucide="shield-check" style="width:26px;height:26px;color:#a78bfa;"></i>
-       </div>
-       <h3 class="font-bold text-white text-sm mb-2" style="font-family:'Plus Jakarta Sans',sans-serif;">Segurança Digital</h3>
-       <p class="text-xs" style="color:rgba(255,255,255,0.55);">Proteção de dados e conformidade com a LGPD</p>
-      </div>
-     </div>
-    </div>
-   </section><!-- CTA Section -->
-   <section class="py-16 sm:py-24" style="background: linear-gradient(135deg, #7c3aed 0%, #6366f1 100%);">
-   <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-     <h2 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white mb-4" style="font-family:'Plus Jakarta Sans',sans-serif;">Pronto para transformar seu negócio?</h2>
-     <p class="text-base mb-8" style="color: rgba(255,255,255,0.85); max-width: 480px; margin-left: auto; margin-right: auto;">Milhares de empreendedores já contam com nosso apoio. Junte-se a eles.</p>
-     <div class="flex flex-wrap justify-center gap-4"><button id="signup-btn" class="px-8 py-3.5 rounded-full font-bold transition-all hover:shadow-xl hover:scale-105" style="background: #fff; color: #6366f1;">Cadastre-se Gratuitamente</button> <button id="consult-btn" class="px-8 py-3.5 rounded-full font-bold transition-all hover:bg-white/10" style="color: #fff; border: 2px solid rgba(255,255,255,0.4);">Fale com um Consultor</button>
-      </div>
-      <div id="signup-panel" class="hidden mt-10 max-w-3xl mx-auto text-left bg-white/10 border border-white/15 p-8 rounded-[30px] shadow-[0_30px_80px_rgba(15,23,42,0.18)]">
-        <h3 class="text-2xl font-bold text-white mb-3">Cadastro Gratuito</h3>
-        <p class="text-sm text-white/70 mb-6">Deixe seu nome, email e senha para receber acesso imediato às nossas soluções.</p>
-        <form id="signup-form" class="grid gap-4">
-          <input id="signup-name" name="nome" type="text" placeholder="Nome completo" class="modal-input" required>
-          <input id="signup-email" name="email" type="email" placeholder="Email" class="modal-input" required>
-          <input id="signup-password" name="senha" type="password" placeholder="Senha" class="modal-input" required>
-          <button type="submit" class="btn-primary w-full">Criar conta</button>
+          <div class="mt-6">
+            <label data-template-id="message-label" class="canva-text mb-2 block text-sm font-bold" for="message">Mensagem</label> 
+            <textarea id="message" class="field-control min-h-32 resize-y" name="message" required></textarea>
+          </div>
+          <p id="form-status" class="status-message mt-5 rounded-sm border px-4 py-3 text-sm" role="status" aria-live="polite" hidden></p>
+          <button id="submit-button" data-template-id="submit-button" class="canva-button mt-7 inline-flex items-center gap-2 bg-[#d9ee69] text-[#12211c] px-6 py-3.5 font-bold transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-60" type="submit"> 
+            <i data-lucide="send" width="18" height="18"></i> 
+            <span data-template-id="submit-button-label" class="canva-text">Enviar mensagem</span> 
+          </button>
         </form>
       </div>
-      <!-- Mentor signup panel -->
-      <div id="mentor-panel" class="hidden mt-8 max-w-3xl mx-auto text-left bg-white/10 border border-white/15 p-8 rounded-[30px] shadow-[0_30px_80px_rgba(15,23,42,0.18)]">
-        <h3 class="text-2xl font-bold text-white mb-3">Cadastro de Mentores</h3>
-        <p class="text-sm text-white/70 mb-6">Cadastre-se para orientar empreendedores — conte sua experiência e área de atuação.</p>
-        <form id="mentor-form" class="grid gap-4">
-          <input id="mentor-name" name="nome" type="text" placeholder="Nome completo" class="modal-input" required>
-          <input id="mentor-email" name="email" type="email" placeholder="Email" class="modal-input" required>
-          <input id="mentor-area" name="area" type="text" placeholder="Área de atuação (ex: marketing, finanças)" class="modal-input" required>
-          <textarea id="mentor-bio" name="bio" placeholder="Breve apresentação / experiência" class="modal-input" rows="4" required></textarea>
-          <button type="submit" class="btn-secondary w-full">Enviar cadastro</button>
-        </form>
-      </div>
-     </div>
-    </div>
-   </section>
-   <section class="py-12 bg-slate-950 ai-section">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 grid gap-8 lg:grid-cols-3 items-center">
-     <div class="lg:col-span-2">
-      <span class="inline-flex items-center justify-center px-4 py-1 rounded-full text-xs font-semibold tracking-wide mb-3 text-slate-200" style="background: rgba(255,255,255,0.08);">Assistente de IA</span>
-      <h2 class="text-2xl sm:text-3xl font-extrabold text-white mb-4" style="font-family:'Plus Jakarta Sans',sans-serif;">Peça uma orientação personalizada</h2>
-      <p class="text-sm text-slate-300 mb-6">A Inteligência Artificial ajuda a identificar o próximo passo no marketing, finanças e vendas, com orientações claras para empreendedores.</p>
-      <div class="flex flex-wrap gap-3 justify-center sm:justify-start mb-6">
-        <button id="ai-helper-btn" class="btn-secondary text-white">Pedir orientação</button>
-        <button id="ai-chat-btn" class="btn-primary text-white">Fazer pergunta</button>
-      </div>
-      <div class="grid gap-3 max-w-2xl mx-auto sm:mx-0">
-        <label for="ai-input" class="text-sm font-medium text-slate-200">Pergunte algo ao assistente</label>
-        <textarea id="ai-input" class="p-4 rounded-3xl bg-slate-900 border border-white/10 text-white placeholder:text-slate-400" rows="3" placeholder="Por exemplo: 'Como melhorar vendas no Instagram?'" aria-label="Pergunta ao assistente"></textarea>
-        <button id="ai-submit-btn" class="btn-primary w-full sm:w-auto text-white">Enviar pergunta</button>
-      </div>
-     </div>
-     <div class="rounded-[30px] bg-white/10 border border-white/10 p-6 shadow-[0_25px_60px_rgba(15,23,42,0.18)]">
-      <h3 class="text-lg font-bold text-white mb-3">Sugestão rápida</h3>
-      <p id="ai-suggestion" class="text-sm text-slate-200 mb-4">Clique em “Pedir orientação” ou envie uma pergunta para receber ajuda imediata.</p>
-      <div id="ai-chat" class="space-y-3"></div>
-     </div>
-    </div>
-   </section>
-   <!-- =========================
-        CONTACT SECTION
-   ========================= -->
-   <section id="contato" class="py-16 sm:py-20 bg-slate-50">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-     <div class="grid gap-8 lg:grid-cols-2 items-start">
-      <div class="space-y-6">
-       <span class="inline-flex items-center px-4 py-1 rounded-full text-xs font-semibold tracking-wide" style="background: rgba(99,102,241,0.12); color:#4f46e5;">Atendimento</span>
-       <h2 class="text-3xl sm:text-4xl font-extrabold" style="color:#1e1b4b;">Fale com nossa equipe e impulsione seu negócio</h2>
-       <p class="text-base max-w-xl" style="color:#475569;">Nosso suporte ajuda você a estruturar vendas, marketing e finanças com clareza. Envie sua dúvida e vamos responder com orientações práticas em até 24 horas úteis.</p>
-       <div class="grid gap-4">
-        <div class="rounded-[28px] p-6" style="background:#ffffff; border:1px solid rgba(99,102,241,0.12); box-shadow: 0 20px 40px rgba(15,23,42,0.06);">
-         <h3 class="text-lg font-bold mb-3" style="color:#1e1b4b;">Contato rápido</h3>
-         <p class="text-sm mb-2" style="color:#475569;"><strong>Telefone:</strong> <span style="color:#4f46e5;">0800 570 0800</span></p>
-         <p class="text-sm" style="color:#475569;"><strong>Email:</strong> <span style="color:#4f46e5;">contato@portal.org.br</span></p>
-        </div>
-        <div class="rounded-[28px] p-6" style="background:#ffffff; border:1px solid rgba(99,102,241,0.12); box-shadow: 0 20px 40px rgba(15,23,42,0.06);">
-         <h3 class="text-lg font-bold mb-3" style="color:#1e1b4b;">Como podemos ajudar</h3>
-         <ul class="space-y-2 text-sm" style="color:#475569; list-style: inside disc; padding-left: 0;">
-          <li>Estratégia de vendas e marketing digital</li>
-          <li>Planejamento financeiro e fluxo de caixa</li>
-          <li>Formalização de MEI e compliance</li>
-          <li>Suporte para presença online e parcerias</li>
-         </ul>
-        </div>
-       </div>
-      </div>
-      <div class="rounded-[32px] bg-white p-8 shadow-[0_30px_80px_rgba(15,23,42,0.08)]">
-       <div class="mb-6">
-        <h3 class="text-2xl font-bold" style="color:#1e1b4b;">Envie sua mensagem</h3>
-        <p class="text-sm" style="color:#64748b;">Preencha os dados abaixo e nos conte como podemos ajudar seu negócio a crescer.</p>
-       </div>
-       <form id="contact-form" class="grid gap-4">
-        <div class="grid gap-4 sm:grid-cols-2">
-         <input id="contato-nome" name="nome" type="text" placeholder="Seu nome" class="p-4 border rounded" style="border-color:#e2e8f0; background:#f8fafc;" required>
-         <input id="contato-email" name="email" type="email" placeholder="Seu email" class="p-4 border rounded" style="border-color:#e2e8f0; background:#f8fafc;" required>
-        </div>
-        <textarea id="contato-mensagem" name="mensagem" placeholder="Como podemos ajudar?" class="p-4 border rounded min-h-[180px]" style="border-color:#e2e8f0; background:#f8fafc;" rows="5" required></textarea>
-        <button type="submit" class="btn-primary w-full" style="background:#4f46e5; color:#ffffff;">Enviar Mensagem</button>
-       </form>
-      </div>
-     </div>
-    </div>
-   </section>
+    </section>
+  </main>
 
-   <footer style="background-color: #01172e;">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
-     <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-10">
-      <div>
-       <div class="flex items-center gap-2 mb-4">
-        <div class="w-9 h-9 rounded-lg flex items-center justify-center" style="background: linear-gradient(135deg, #6366f1, #7c3aed);">
-         <svg width="18" height="18" viewbox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round">
-          <path d="M12 2L2 7l10 5 10-5-10-5z" /><path d="M2 17l10 5 10-5" /><path d="M2 12l10 5 10-5" />
-         </svg>
-        </div><span class="font-bold text-white" style="font-family:'Plus Jakarta Sans',sans-serif;">Impulsa<span style="color:#a78bfa;">+</span></span>
-       </div>
-       <p class="text-sm leading-relaxed" style="color: rgba(255,255,255,0.45);">Impulsionando o empreendedorismo e a inovação em todo o Brasil.</p>
-      </div>
-      <div>
-       <h4 class="font-bold text-sm text-white mb-4">Institucional</h4>
-       <ul class="space-y-2.5">
-        <li><a href="#" class="text-sm hover:text-white transition-colors" style="color:rgba(255,255,255,0.45);">Sobre Nós</a></li>
-        <li><a href="#" class="text-sm hover:text-white transition-colors" style="color:rgba(255,255,255,0.45);">Transparência</a></li>
-        <li><a href="#" class="text-sm hover:text-white transition-colors" style="color:rgba(255,255,255,0.45);">Trabalhe Conosco</a></li>
-       </ul>
-      </div>
-      <div>
-       <h4 class="font-bold text-sm text-white mb-4">Serviços</h4>
-       <ul class="space-y-2.5">
-        <li><a href="#" class="text-sm hover:text-white transition-colors" style="color:rgba(255,255,255,0.45);">Capacitação</a></li>
-        <li><a href="#" class="text-sm hover:text-white transition-colors" style="color:rgba(255,255,255,0.45);">Consultoria</a></li>
-        <li><a href="#" class="text-sm hover:text-white transition-colors" style="color:rgba(255,255,255,0.45);">Formalização</a></li>
-       </ul>
-      </div>
-      <div>
-       <h4 class="font-bold text-sm text-white mb-4">Contato</h4>
-       <ul class="space-y-2.5">
-        <li class="flex items-center gap-2"><i data-lucide="phone" style="width:14px;height:14px;color:#22c55e;"></i><span class="text-sm" style="color:rgba(255,255,255,0.45);">0800 570 0800</span></li>
-        <li class="flex items-center gap-2"><i data-lucide="mail" style="width:14px;height:14px;color:#22c55e;"></i><span class="text-sm" style="color:rgba(255,255,255,0.45);">contato@portal.org.br</span></li>
-        <li class="flex items-center gap-2"><i data-lucide="map-pin" style="width:14px;height:14px;color:#22c55e;"></i><span class="text-sm" style="color:rgba(255,255,255,0.45);">São Paulo, SP</span></li>
-       </ul>
-      </div>
-     </div>
-     <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4" style="border-top: 1px solid rgba(255,255,255,0.08);">
-      <p class="text-xs" style="color: rgba(255,255,255,0.35);">© 2026 Impulsa+. Todos os direitos reservados.</p>
-      <div class="flex gap-3"><a href="#" class="w-9 h-9 rounded-full flex items-center justify-center transition-colors" style="background: rgba(255,255,255,0.06);" onmouseover="this.style.background='rgba(34,197,94,0.2)'" onmouseout="this.style.background='rgba(255,255,255,0.06)'"><i data-lucide="instagram" style="width:16px;height:16px;color:rgba(255,255,255,0.5);"></i></a> <a href="#" class="w-9 h-9 rounded-full flex items-center justify-center transition-colors" style="background: rgba(255,255,255,0.06);" onmouseover="this.style.background='rgba(34,197,94,0.2)'" onmouseout="this.style.background='rgba(255,255,255,0.06)'"><i data-lucide="linkedin" style="width:16px;height:16px;color:rgba(255,255,255,0.5);"></i></a> <a href="#" class="w-9 h-9 rounded-full flex items-center justify-center transition-colors" style="background: rgba(255,255,255,0.06);" onmouseover="this.style.background='rgba(34,197,94,0.2)'" onmouseout="this.style.background='rgba(255,255,255,0.06)'"><i data-lucide="youtube" style="width:16px;height:16px;color:rgba(255,255,255,0.5);"></i></a>
-      </div>
-     </div>
+  <footer class="w-full bg-[#12211c] px-5 pb-7 lg:px-8">
+    <div class="mx-auto flex max-w-7xl flex-col gap-3 border-t border-[#405148] pt-7 sm:flex-row sm:items-center sm:justify-between text-[#fffdf8]">
+      <p data-template-id="footer-copy" class="canva-text text-sm">© Story Education. Todos os direitos reservados.</p>
+      <p data-template-id="footer-tagline" class="canva-text text-sm font-medium">Redefinindo o aprendizado através de histórias.</p>
     </div>
-   </footer>
-  </div>
+  </footer>
 
-  <!-- Login modal -->
-  <div id="login-modal" class="hidden modal-overlay">
-    <div class="modal-content">
-      <button class="modal-close" id="login-close">×</button>
-      <h3>Entrar</h3>
-      <p style="color:#64748b;">Informe seu e-mail e senha para acessar sua conta.</p>
-      <input id="login-email" class="modal-input" placeholder="Email" type="email">
-      <input id="login-pass" class="modal-input" placeholder="Senha" type="password">
-      <div style="display:flex;gap:8px;width:100%">
-        <button id="login-submit" class="btn-primary" style="flex:1">Entrar</button>
-        <button id="login-cancel" class="btn-secondary" style="flex:1">Cancelar</button>
-      </div>
-      
-    </div>
-  </div>
-
-  <!-- Floating AI chat widget -->
-    <div id="chat-toggle" title="Abrir chat" style="position:fixed;right:18px;bottom:18px;z-index:99999;">
-    <button style="width:56px;height:56px;border-radius:9999px;background:linear-gradient(135deg,#7c3aed,#6366f1);border:none;color:white;box-shadow:0 8px 30px rgba(99,102,241,0.18);font-weight:700;">IA</button>
-  </div>
-    <!-- Floating theme toggle (outside layout) -->
-    <div id="theme-toggle-floating" title="Alternar tema" style="position:fixed;right:18px;bottom:86px;z-index:99999;">
-      <button aria-label="Alternar tema" style="width:46px;height:46px;border-radius:9999px;background:rgba(255,255,255,0.95);border:none;color:#0f172a;box-shadow:0 8px 30px rgba(2,6,23,0.12);font-weight:700;">🌓</button>
-    </div>
-  <div id="chat-drawer" class="hidden" style="position:fixed;right:22px;bottom:86px;z-index:99999;width:360px;max-width:92vw;border-radius:16px;overflow:hidden;box-shadow:0 30px 80px rgba(2,6,23,0.2);">
-    <div style="background:#ffffff;padding:12px 14px;border-bottom:1px solid rgba(2,6,23,0.06);display:flex;align-items:center;justify-content:space-between;">
-      <strong style="color:#0f172a">Assistente IA</strong>
-      <button id="chat-close" aria-label="Fechar" style="background:transparent;border:none;font-size:18px;">×</button>
-    </div>
-    <div style="background:#fff;padding:8px 12px;border-bottom:1px solid rgba(2,6,23,0.04);display:flex;align-items:center;gap:8px;">
-      <button id="drawer-mentors-toggle" class="btn-secondary" style="padding:6px 10px;border-radius:8px;">Mentores</button>
-      <div style="flex:1;color:#334155;font-size:13px;">Converse com a IA ou selecione um mentor para direcionar sua dúvida.</div>
-    </div>
-    <div id="drawer-mentors" class="hidden" style="background:#f8fafc;padding:10px;max-height:160px;overflow:auto;display:flex;flex-direction:column;gap:8px;border-bottom:1px solid rgba(2,6,23,0.04);"></div>
-    <div id="drawer-messages" style="background:#f8fafc;padding:12px;max-height:220px;overflow:auto;display:flex;flex-direction:column;gap:10px;"></div>
-    <div style="padding:10px;background:#fff;border-top:1px solid rgba(2,6,23,0.06);display:flex;gap:8px;">
-      <input id="drawer-input" placeholder="Pergunte algo sobre seu negócio" style="flex:1;padding:10px;border:1px solid #e6edf3;border-radius:12px;" />
-      <button id="drawer-send" class="btn-primary" style="padding:8px 12px;border-radius:10px;">Enviar</button>
-    </div>
-  </div>
-
+  <!-- Vínculo com o arquivo JS externo -->
   <script src="script.js"></script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9fdc4af2650bb6fb',t:'MTc3OTEyMjMxMi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</body>
 </html>
